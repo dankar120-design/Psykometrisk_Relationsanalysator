@@ -878,13 +878,13 @@ def import_hash_data():
     hash_str = re.sub(r'\s+', '', raw_input)
     
     # Validera mot Regex
-    match = re.match(r'^PRA-([DE])-([a-f0-9]{8})-([A-Za-z0-9+/=]+)$', hash_str)
+    match = re.match(r'^PRA-([a-f0-9]{8})-([A-Za-z0-9+/=]+)$', hash_str)
     if not match:
         print(f"\n{RED}⚠ FEL: Ogiltigt kodformat. Koden är skadad eller felaktig.{RESET}")
         time.sleep(2)
         return
         
-    subject, fp, encoded = match.groups()
+    fp, encoded = match.groups()
     
     # Validera Fingerprint
     current_fp = questionnaire_fingerprint()
@@ -892,9 +892,15 @@ def import_hash_data():
         print(f"\n{RED}⚠ FEL: Versionskonflikt! Koden skapades med ett äldre frågebatteri.{RESET}")
         print(f"{AMBER}Din nuvarande version: {current_fp}{RESET}")
         print(f"{AMBER}Filens version: {fp}{RESET}")
-        print(f"{AMBER}Vänligen exportera ett nytt test (Alternativ 5) och be {subject} göra om testet.{RESET}")
+        print(f"{AMBER}Vänligen uppdatera webbsidan och gör om testet.{RESET}")
         time.sleep(5)
         return
+        
+    # Fråga vem svaren tillhör
+    print()
+    subject = ""
+    while subject not in ["D", "E"]:
+        subject = input(f"{AMBER}Vem tillhör dessa svar (D/E)?: {RESET}").strip().upper()
         
     # Normalisera Base64-padding
     padding_needed = (4 - len(encoded) % 4) % 4
@@ -918,7 +924,7 @@ def import_hash_data():
     state = load_state_with_fallback()
     
     if subject not in state["subjects"]:
-        print(f"\n{RED}⚠ FEL: Ogiltigt subjekt i koden ({subject}).{RESET}")
+        print(f"\n{RED}⚠ FEL: Ogiltigt subjekt ({subject}).{RESET}")
         time.sleep(2)
         return
 
