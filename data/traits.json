@@ -1,0 +1,134 @@
+{
+  "traits": [
+    {
+      "id": "ANXIOUS_PREOCCUPIED",
+      "module": "attachment",
+      "name": "Ångestfylld anknytning",
+      "description": "Starkt behov av närhet och yttre bekräftelse. Känslig för tecken på distansering.",
+      "conditions": {
+        "anxiety_score": { "min": 0.6 },
+        "avoidance_score": { "max": 0.4 }
+      }
+    },
+    {
+      "id": "DISMISSIVE_AVOIDANT",
+      "module": "attachment",
+      "name": "Avfärdande-undvikande anknytning",
+      "description": "Prioriterar självständighet och autonomi. Drar sig undan vid emotionell närhet.",
+      "conditions": {
+        "anxiety_score": { "max": 0.4 },
+        "avoidance_score": { "min": 0.6 }
+      }
+    },
+    {
+      "id": "FEARFUL_AVOIDANT",
+      "module": "attachment",
+      "name": "Räddhågsen-undvikande anknytning",
+      "description": "Draghållfasthet mellan längtan efter närhet och rädsla för att bli sårad.",
+      "conditions": {
+        "anxiety_score": { "min": 0.6 },
+        "avoidance_score": { "min": 0.6 }
+      }
+    },
+    {
+      "id": "HSP_LST",
+      "module": "hsp",
+      "name": "Låg sensorisk tröskel (HSP-LST)",
+      "description": "Låg tolerans för yttre stimulans som starkt ljus, högt ljud och folkmassor.",
+      "conditions": {
+        "overload_threshold_hrs": { "max": 4.0 }
+      }
+    },
+    {
+      "id": "HSP_EOE",
+      "module": "hsp",
+      "name": "Lättdistraherad/Lättöverväldigad (HSP-EOE)",
+      "description": "Blir snabbt överväldigad av att göra för mycket samtidigt eller av högt tempo.",
+      "conditions": {
+        "recovery_latency_hrs": { "min": 4.0 }
+      }
+    }
+  ],
+  "interaction_rules": [
+    {
+      "id": "RULE_ANXIOUS_AVOIDANT_TRAP",
+      "conditions": [
+        { "subject": "D", "path": "identified_traits", "operator": "contains", "value": "ANXIOUS_PREOCCUPIED" },
+        { "subject": "E", "path": "identified_traits", "operator": "contains", "value": "DISMISSIVE_AVOIDANT" }
+      ],
+      "type": "collision",
+      "severity": "critical",
+      "description": "Ångest-Undvikande-fällan: D:s närhetsjakt krockar med E:s behov av autonomi och distansering."
+    },
+    {
+      "id": "RULE_ANXIOUS_AVOIDANT_TRAP_REV",
+      "conditions": [
+        { "subject": "D", "path": "identified_traits", "operator": "contains", "value": "DISMISSIVE_AVOIDANT" },
+        { "subject": "E", "path": "identified_traits", "operator": "contains", "value": "ANXIOUS_PREOCCUPIED" }
+      ],
+      "type": "collision",
+      "severity": "critical",
+      "description": "Ångest-Undvikande-fällan: E:s närhetsjakt krockar med D:s behov av autonomi och distansering."
+    },
+    {
+      "id": "RULE_HSP_RECOVERY_COLLISION",
+      "conditions": [
+        { "subject": "D", "path": "identified_traits", "operator": "contains", "value": "HSP_EOE" },
+        { "subject": "E", "path": "attachment_profile.stress_response.effective", "operator": "equal", "value": "hyperactivation" }
+      ],
+      "type": "collision",
+      "severity": "high",
+      "description": "Sensorisk återhämtningskrock: D behöver ensamtid för återhämtning, vilket krockar med E:s behov av omedelbar kontakt vid stress."
+    },
+    {
+      "id": "RULE_HSP_RECOVERY_COLLISION_REV",
+      "conditions": [
+        { "subject": "E", "path": "identified_traits", "operator": "contains", "value": "HSP_EOE" },
+        { "subject": "D", "path": "attachment_profile.stress_response.effective", "operator": "equal", "value": "hyperactivation" }
+      ],
+      "type": "collision",
+      "severity": "high",
+      "description": "Sensorisk återhämtningskrock: E behöver ensamtid för återhämtning, vilket krockar med D:s behov av omedelbar kontakt vid stress."
+    },
+    {
+      "id": "RULE_GOTTMAN_CRITICISM_STONEWALLING",
+      "conditions": [
+        { "subject": "D", "path": "conflict_mechanisms.gottman_flags.effective", "operator": "contains", "value": "Kritik" },
+        { "subject": "E", "path": "conflict_mechanisms.gottman_flags.effective", "operator": "contains", "value": "Stonewalling" }
+      ],
+      "type": "collision",
+      "severity": "critical",
+      "description": "Destruktiv eskalering: D framför kritik vilket får E att stänga av och stendö (Stonewalling)."
+    },
+    {
+      "id": "RULE_GOTTMAN_CRITICISM_STONEWALLING_REV",
+      "conditions": [
+        { "subject": "E", "path": "conflict_mechanisms.gottman_flags.effective", "operator": "contains", "value": "Kritik" },
+        { "subject": "D", "path": "conflict_mechanisms.gottman_flags.effective", "operator": "contains", "value": "Stonewalling" }
+      ],
+      "type": "collision",
+      "severity": "critical",
+      "description": "Destruktiv eskalering: E framför kritik vilket får D att stänga av och stendö (Stonewalling)."
+    },
+    {
+      "id": "RULE_TKI_COMPETING_COLLISION",
+      "conditions": [
+        { "subject": "D", "path": "conflict_mechanisms.primary_tki.effective", "operator": "equal", "value": "Competing" },
+        { "subject": "E", "path": "conflict_mechanisms.primary_tki.effective", "operator": "equal", "value": "Competing" }
+      ],
+      "type": "collision",
+      "severity": "high",
+      "description": "Maktkamp: Båda parter använder konkurrerande konfliktstrategier, vilket skapar eskalerande konflikter."
+    },
+    {
+      "id": "RULE_TKI_AVOIDING_STAGNATION",
+      "conditions": [
+        { "subject": "D", "path": "conflict_mechanisms.primary_tki.effective", "operator": "equal", "value": "Avoiding" },
+        { "subject": "E", "path": "conflict_mechanisms.primary_tki.effective", "operator": "equal", "value": "Avoiding" }
+      ],
+      "type": "collision",
+      "severity": "medium",
+      "description": "Konfliktundvikande stagnation: Båda parter drar sig undan konflikter vilket leder till att underliggande problem förblir olösta."
+    }
+  ]
+}

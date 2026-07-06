@@ -1,0 +1,15 @@
+# Ignore personal relation state data to keep it fully offline and private
+data/relation_state.json
+data/relation_state.json.bak
+data/relation_state.json.tmp
+
+# Python artifacts
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+
+# OS specific files
+.DS_Store
+Thumbs.db
