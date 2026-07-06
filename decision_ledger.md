@@ -1,1 +1,41 @@
-爼捥牯⁤摩∽䕄ⵃ〰∱欠瑡来牯㵩䄢歲瑩步畴≲ਾ†戼獥畬㹴瑅扡敬慲攠⁮瑳楲瑫洠摯汵꓃⁲慫慴潬獧牴歵畴⁲敭⁤潤畫敭瑮瑡潩⁮搨捯⽳Ⱙ猠慴楴歳⁡慤慴楦敬⁲搨瑡⽡Ⱙ欠꓃汬潫⁤猨捲⤯漠档琠獥整⁲琨獥獴⤯‬慳瑭攠瑴漠敶牲摩ⵥ歳摹慤⁴半乏猭档浥⁡⁩敲慬楴湯獟慴整樮潳⹮⼼敢汳瑵ਾ†欼꓃湲㹡牁楫整瑫牵瑳畲瑫牵漠档漠敶牲摩ⵥ慨瑮牥湩㱧欯꓃湲㹡 㰠潭楴敶楲杮䐾湥洠摯汵꓃慲猠牴歵畴敲⁮썳殤牥瑳꓃汬牥朠摯欠摯癫污瑩瑥漠档猠灥牡瑡潩⁮癡愠獮慶⹲匠灥牡瑡潩⁮癡挠浯異整⁤捯⁨癯牥楲敤瘭꓃摲湥朠牡湡整慲⁲瑡洠湡敵汬⁡番瑳牥湩慧⁲牦ꗃ⁮橤灵湩整癲番牥椠瑮⁥歳楲獶쌠皶牥愠⁶敢썲殤楮杮浳瑯牯⁮楶⁤牦浡楴慤琠獥整⁲汥敬⁲浯慬摤楮杮牡㰮洯瑯癩牥湩㹧㰊爯捥牯㹤ਊ爼捥牯⁤摩∽䕄ⵃ〰∲欠瑡来牯㵩唢癴捥汫湩≧ਾ†戼獥畬㹴浉汰浥湥整慲搠湥瀠祳潫敭牴獩慫戠牥꓃湫湩獧潭潴湲漠档爠瑥潲䌭䥌搭獡扨慯摲湥洠摥愠潴썭犤⁡歳楲獶祫摤摡⁥潬楧敫⁲捯⁨湥敨獴整瑳⁡敭⁤湩祢杧慤甠楮瑴獥⹴⼼敢汳瑵ਾ†欼꓃湲㹡敇潮晭뛃慲摮⁥癡戠牥꓃湫湩獧潭潴⁲捯⁨䱃㱉欯꓃湲㹡 㰠潭楴敶楲杮䄾癮꓃摮湡敤⁴癡倠瑹潨獮椠扮杹摧⁡湵瑩整瑳琠牡戠牯⁴敢潨敶⁴癡攠瑸牥慮瀠歡瑥⠠祰整瑳 楶歬瑥戠癥牡牡猠獹整敭獴猠牴歩慴椠潳敬楲杮‮敔瑳牥戠步썲暤慴⁲瑡⁴獡浹敭牴獩慫椠瑮牥歡楴湯牥搠瑥步整慲⁳潫牲步⁴捯⁨瑡⁴癯牥楲敤⁳楢敢써沥獬㰮洯瑯癩牥湩㹧㰊爯捥牯㹤ਊ爼捥牯⁤摩∽䕄ⵃ〰∳欠瑡来牯㵩刢晥歡潴楲敳楲杮㸢 㰠敢汳瑵刾晥歡潴楲敳慲椠瑮牥歡楴湯牳来敬湲⁡楴汬攠瑴朠湥牥獩瑫挠湯楤楴湯⵳潦浲瑡椠琠慲瑩⹳獪湯‬浩汰浥湥整慲猠晡彥畲彮湡污獹獩眠慲灰牥⁳慳瑭攠楬業敮慲猠湹慴晸汥椠映污扬捡⵫扯敪瑫湥㰮戯獥畬㹴 㰠썫犤慮䐾湹浡獩⁫敲敧浬瑯牯漠档欠慲捳獨꓃牫湩⁧癡䌠䥌⼼썫犤慮ਾ†洼瑯癩牥湩㹧敇潮⁭瑡⁴汦瑹慴椠瑮牥歡楴湯汳杯歩湥琠汩⁬瑥⁴慤慴牤癩瑥猠档浥⁡敭⁤灯牥瑡牯牥洠湩浩牥獡甠摮牥써沥獬敢潨敶⁴癡瀠祳档浯瑥楲獣瀮⹹匠晡⁥牷灡数獲漠档映硩摡⁥祐桴湯氭瑩牥污牥朠牡湡整慲⁲瑡⁴慭畮汥慬樠獵整楲杮牡攠汬牥琠汩晬꓃汬杩⁴潫牲灵慴映汩牥愠摬楲⁧牫獡档牡搠獡扨慯摲湥瘠摩栠瑯爠汥慯⹤⼼潭楴敶楲杮ਾ⼼敲潣摲ਾ帊㰀爀攀挀漀爀搀ഀ਀椀搀㴀䐀䔀䌀ⴀ　　㐀ഀ਀欀愀琀攀最漀爀椀㴀匀欀攀爀栀攀琀 漀挀栀 䐀愀琀愀椀渀琀攀最爀椀琀攀琀帀㸀帀㰀戀攀猀氀甀琀帀㸀䤀洀瀀氀攀洀攀渀琀攀爀愀ഀ਀匀椀渀最氀攀ഀ਀匀漀甀爀挀攀ഀ਀漀昀ഀ਀吀爀甀琀栀ഀ਀昀爀ഀ਀攀砀琀攀爀渀愀ഀ਀琀攀猀琀攀爀ഀ਀瘀椀愀ഀ਀搀礀渀愀洀椀猀欀ഀ਀䠀吀䴀䰀ⴀ攀砀瀀漀爀琀ഀ਀漀挀栀ഀ਀猀琀爀甀欀琀甀爀攀氀氀ഀ਀昀椀渀最攀爀瀀爀椀渀琀椀渀最⸀帀㰀⼀戀攀猀氀甀琀帀㸀帀㰀欀爀渀愀帀㸀䠀愀猀栀ⴀ瘀愀氀椀搀攀爀椀渀最ഀ਀漀挀栀ഀ਀愀甀琀漀ⴀ最攀渀攀爀攀爀椀渀最ഀ਀愀瘀ഀ਀䠀吀䴀䰀ⴀ琀攀猀琀帀㰀⼀欀爀渀愀帀㸀帀㰀洀漀琀椀瘀攀爀椀渀最帀㸀䘀爀ഀ਀愀琀琀ഀ਀昀爀栀椀渀搀爀愀ഀ਀琀礀猀琀ഀ਀搀愀琀愀欀漀爀爀甀瀀琀椀漀渀ഀ਀愀瘀ഀ਀漀昀爀攀渀氀椀最愀ഀ਀攀渀欀琀瘀攀爀猀椀漀渀攀爀ഀ਀最攀渀攀爀攀爀愀猀ഀ਀渀甀ഀ਀攀渀ഀ਀甀渀椀欀ഀ਀猀琀爀甀欀琀甀爀攀氀氀ഀ਀匀䠀䄀ⴀ㈀㔀㘀ഀ਀昀椀渀最攀爀瀀爀椀渀琀ഀ਀昀爀渀ഀ਀儀唀䔀匀吀䤀伀一匀ⴀ漀戀樀攀欀琀攀琀⸀ഀ਀搀椀猀琀愀渀猀开琀攀猀琀⸀栀琀洀氀ഀ਀最攀渀攀爀攀爀愀猀ഀ਀搀椀爀攀欀琀ഀ਀昀爀渀ഀ਀䌀䰀䤀ഀ਀洀攀搀ഀ਀昀爀最漀爀渀愀ഀ਀漀挀栀ഀ਀昀椀渀最攀爀瀀爀椀渀琀攀渀ഀ਀椀渀戀搀搀愀搀攀⸀ഀ਀䤀洀瀀漀爀琀昀甀渀欀琀椀漀渀攀渀ഀ਀瘀愀氀椀搀攀爀愀爀ഀ਀昀椀渀最攀爀瀀爀椀渀琀攀渀ഀ਀瘀愀氀椀搀攀爀愀爀ഀ਀昀漀爀洀愀琀攀琀ഀ਀洀攀搀ഀ਀猀琀爀椀欀琀ഀ਀刀攀最攀砀ഀ਀漀挀栀ഀ਀栀愀渀琀攀爀愀爀ഀ਀䈀愀猀攀㘀㐀ⴀ瀀愀搀搀椀渀最ⴀ昀攀氀⸀帀㰀⼀洀漀琀椀瘀攀爀椀渀最帀㸀帀㰀⼀爀攀挀漀爀搀帀㸀ഀ਀
+<record id="DEC-001" kategori="Arkitektur">
+  <beslut>Etablera en strikt modulär katalogstruktur med dokumentation (docs/), statiska datafiler (data/), källkod (src/) och tester (tests/), samt ett override-skyddat JSON-schema i relation_state.json.</beslut>
+  <kärna>Arkitekturstruktur och override-hantering</kärna>
+  <motivering>Den modulära strukturen säkerställer god kodkvalitet och separation av ansvar. Separation av computed och override-värden garanterar at manuella justeringar från djupintervjuer inte skrivs över av beräkningsmotorn vid framtida tester eller omladdningar.</motivering>
+</record>
+
+<record id="DEC-002" kategori="Utveckling">
+  <beslut>Implementera den psykometriska beräkningsmotorn och retro-CLI-dashboarden med atomära skrivskyddade logiker och enhetstesta med inbyggda unittest.</beslut>
+  <kärna>Genomförande av beräkningsmotor och CLI</kärna>
+  <motivering>Användandet av Pythons inbyggda unittest tar bort behovet av externa paket (pytest) vilket bevarar systemets strikta isolering. Tester bekräftar att asymmetriska interaktioner detekteras korrekt och att overrides bibehålls.</motivering>
+</record>
+
+<record id="DEC-003" kategori="Refaktorisering">
+  <beslut>Refaktorisera interaktionsreglerna till ett generiskt conditions-format i traits.json, implementera safe_run_analysis wrappers samt eliminera syntaxfel i fallback-objekten.</beslut>
+  <kärna>Dynamisk regelmotor och kraschsäkring av CLI</kärna>
+  <motivering>Genom av flytta interaktionslogiken till ett datadrivet schema med operatorer minimeras underhållsbehovet av psychometrics.py. Safe wrappers och fixade Python-literaler garanterar att manuella justeringar eller tillfälligt korrupta filer aldrig kraschar dashboarden vid hot reload.</motivering>
+</record>
+
+<record id="DEC-004" kategori="Säkerhet och Dataintegritet">
+  <beslut>Implementera Single Source of Truth för externa tester via dynamisk HTML-export och strukturell fingerprinting.</beslut>
+  <kärna>Hash-validering och auto-generering av HTML-test</kärna>
+  <motivering>För att förhindra tyst datakorruption av oförenliga enkätversioner genereras nu en unik strukturell SHA-256 fingerprint från QUESTIONS-objektet. distans_test.html genereras direkt från CLI med frågorna och fingerprinten inbäddade. Importfunktionen validerar fingerprinten, validerar formatet med strikt Regex och hanterar Base64-padding-fel.</motivering>
+</record>
+
+<record id="DEC-005" kategori="Utveckling">
+  <beslut>Implementera klientsides-dashboarden dashboard.html (Calm Sanctuary) med lokal JavaScript-klassificering, SVG-visualisering av relationskrockar, och AI-promptgenerator. Byggsteget sker via build_dashboard.py för att undvika CORS-blockering vid file:// och bibehålla traits.json som Single Source of Truth.</beslut>
+  <kärna>Calm Sanctuary dashboard och inbäddad regelmotor via byggskript</kärna>
+  <motivering>Löser CORS-begränsningen för lokala HTML-filer genom att baka in frågor och regler vid byggtillfället. Detta möjliggör portabel körning (både file:// och localhost) utan serverkrav för slutanvändaren, samtidigt som utvecklingen hålls DRY.</motivering>
+</record>
+
+<record id="DEC-006" kategori="Felsökning">
+  <beslut>Refaktorisera JS-regelmotorn till en kapslad struktur som speglar traits.json-sökvägarna, samt införa regex-ordgränser i namnsubstitutionen och fingerprint-baserad cache-invalidering för localStorage.</beslut>
+  <kärna>Fidelity-korrigering av regelmotor, namnskydd och cache-invalidering</kärna>
+  <motivering>Löste problemet där 6 av 8 regler var döda i klientsides-dashboarden på grund av missmatchade JSON-sökvägar. Förhindrade dessutom korruption av löpande text via string replace samt löste risk för korrupt state vid ändringar av enkäten.</motivering>
+</record>
+
+<record id="DEC-007" kategori="UI/Layout">
+  <beslut>Implementera custom-modaler (custom-alert-modal) i salvia/sand-temat för att ersätta webbläsarens inbyggda alert-popuper. Anpassa dessutom importbox-höjderna till exakt 40px samt lägg till responsivitet för relationskartan på skärmar under 600px.</beslut>
+  <kärna>Temabundna modalpopuper, höjdjusteringar och mobilanpassad visualisering</kärna>
+  <motivering>Browser-alerts bryter mot spa-temats premiumkänsla och blockerar trådar. Genom att bygga egna CSS-modaler säkras en enhetlig grafisk profil. Mobiljusteringar på nodes-col (42% bredd och 0.65rem font) förhindrar overflow på mindre skärmar.</motivering>
+</record>

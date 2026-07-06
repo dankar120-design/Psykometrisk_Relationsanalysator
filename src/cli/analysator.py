@@ -827,7 +827,7 @@ def generate_html_template(subject, fingerprint, questions_obj):
 
         const answerString = userAnswers.join("");
         const b64 = btoa(answerString);
-        const checksum = `PRA-${{SUBJ}}-${{FP}}-${{b64}}`;
+        const checksum = `PRA-${{FP}}-${{b64}}`;
 
         document.getElementById("hash-box").textContent = checksum;
     }}

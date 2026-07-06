@@ -1,0 +1,2376 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Psykometrisk Relationsanalysator — Calm Sanctuary</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-wellness: #F6F5F0;
+            --card-bg: #FFFFFF;
+            --text-main: #2D3A34;
+            --text-muted: #62726B;
+            --accent-sage: #84A98C;
+            --accent-sage-dark: #52796F;
+            --accent-sage-light: #E8EDE9;
+            --accent-sand: #D4A373;
+            --accent-sand-light: #F4EAE1;
+            --border-color: #E2E6E3;
+            --color-collision: #E07A5F;
+            --color-collision-bg: #FDF1ED;
+            --color-sync: #81B29A;
+            --color-sync-bg: #F0F7F4;
+            --shadow-sm: 0 2px 8px rgba(45, 58, 52, 0.04);
+            --shadow-md: 0 8px 24px rgba(45, 58, 52, 0.08);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --border-radius: 16px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-wellness);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 24px;
+            min-height: 100vh;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+        }
+
+        /* Top Header & Intro */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--card-bg);
+            padding: 32px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 24px;
+            border: 1px solid var(--border-color);
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .header-title-area {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .header-title-area h1 {
+            font-size: 2.2rem;
+            color: var(--accent-sage-dark);
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-title-area h1 svg {
+            fill: var(--accent-sage);
+        }
+
+        .header-title-area p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Overall Sync Score Indicator */
+        .sync-score-card {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            background: var(--accent-sage-light);
+            padding: 16px 28px;
+            border-radius: 12px;
+            border: 1px solid rgba(132, 169, 140, 0.25);
+        }
+
+        .progress-ring-container {
+            position: relative;
+            width: 80px;
+            height: 80px;
+        }
+
+        .progress-ring-bg {
+            fill: none;
+            stroke: rgba(132, 169, 140, 0.2);
+            stroke-width: 8;
+        }
+
+        .progress-ring-bar {
+            fill: none;
+            stroke: var(--accent-sage-dark);
+            stroke-width: 8;
+            stroke-linecap: round;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+            transition: stroke-dashoffset 0.6s ease;
+        }
+
+        .progress-ring-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 1.3rem;
+            color: var(--accent-sage-dark);
+        }
+
+        .sync-info h3 {
+            font-size: 1.1rem;
+            margin-bottom: 4px;
+            color: var(--accent-sage-dark);
+        }
+
+        .sync-info p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            max-width: 200px;
+        }
+
+        /* Subjects Config Area */
+        .config-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 20px 32px;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 24px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            gap: 24px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .config-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-right: 12px;
+        }
+
+        .input-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .input-group label {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-main);
+        }
+
+        .input-group input {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 8px 12px;
+            font-family: inherit;
+            color: inherit;
+            font-weight: 500;
+            width: 150px;
+            transition: var(--transition);
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--accent-sage);
+            box-shadow: 0 0 0 3px rgba(132, 169, 140, 0.15);
+        }
+
+        /* Main Dashboard Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 350px 1fr 350px;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        @media (max-width: 1200px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Subject Profile Cards */
+        .subject-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 24px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            transition: var(--transition);
+        }
+
+        .subject-card:hover {
+            box-shadow: var(--shadow-md);
+        }
+
+        .subject-card-header {
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .subject-card-header h2 {
+            font-size: 1.4rem;
+            color: var(--accent-sage-dark);
+        }
+
+        .badge-status {
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-complete {
+            background-color: var(--color-sync-bg);
+            color: var(--color-sync);
+        }
+
+        .status-empty {
+            background-color: #F0F0F0;
+            color: #888888;
+        }
+
+        /* Profile stats & bars */
+        .stat-section {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .stat-section h3 {
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+            border-left: 3px solid var(--accent-sage);
+            padding-left: 8px;
+        }
+
+        .stat-row {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .stat-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .stat-bar-container {
+            height: 8px;
+            background-color: var(--bg-wellness);
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.02);
+        }
+
+        .stat-bar {
+            height: 100%;
+            background-color: var(--accent-sage);
+            border-radius: 4px;
+            width: 0%;
+            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .stat-value-text {
+            color: var(--accent-sage-dark);
+            font-weight: 600;
+        }
+
+        .pill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 4px;
+        }
+
+        .pill-item {
+            font-size: 0.8rem;
+            padding: 4px 10px;
+            border-radius: 6px;
+            background-color: var(--bg-wellness);
+            border: 1px solid var(--border-color);
+            font-weight: 500;
+        }
+
+        .pill-item.warning {
+            background-color: var(--color-collision-bg);
+            border-color: rgba(224, 122, 95, 0.2);
+            color: var(--color-collision);
+        }
+
+        .subject-actions {
+            margin-top: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        /* Buttons */
+        .btn {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            padding: 12px 18px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.95rem;
+            text-align: center;
+            width: 100%;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-sage);
+            color: white;
+            border-color: var(--accent-sage);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-sage-dark);
+            border-color: var(--accent-sage-dark);
+            box-shadow: 0 4px 12px rgba(82, 121, 111, 0.2);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--accent-sage-dark);
+            border-color: var(--accent-sage);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--accent-sage-light);
+        }
+
+        .btn-text {
+            border: none;
+            background: none;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            text-decoration: underline;
+            padding: 4px;
+        }
+
+        .btn-text:hover {
+            color: var(--text-main);
+        }
+
+        /* Middle Visualizer Card */
+        .visualizer-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 24px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            min-height: 450px;
+            position: relative;
+        }
+
+        .visualizer-card h3 {
+            font-size: 1.25rem;
+            color: var(--accent-sage-dark);
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 12px;
+        }
+
+        .map-wrapper {
+            position: relative;
+            flex: 1;
+            width: 100%;
+            min-height: 350px;
+        }
+
+        #relations-svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .map-cols {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            z-index: 2;
+            height: 100%;
+            padding: 10px 0;
+        }
+
+        .nodes-col {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 180px;
+        }
+
+        .nodes-col.left-nodes {
+            align-items: flex-start;
+        }
+
+        .nodes-col.right-nodes {
+            align-items: flex-end;
+        }
+
+        .map-node {
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 8px 12px;
+            border-radius: 8px;
+            background: var(--bg-wellness);
+            border: 1px solid var(--border-color);
+            max-width: 100%;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            white-space: normal;
+            word-wrap: break-word;
+            display: inline-block;
+        }
+
+        .map-node.active-conn {
+            background-color: var(--accent-sage-light);
+            border-color: var(--accent-sage);
+            color: var(--accent-sage-dark);
+        }
+
+        .map-node.active-conn.collision-node {
+            background-color: var(--color-collision-bg);
+            border-color: var(--color-collision);
+            color: var(--color-collision);
+        }
+
+        .connection-line {
+            fill: none;
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            opacity: 0.75;
+            transition: var(--transition);
+        }
+
+        .connection-line.collision {
+            stroke-dasharray: 4, 4;
+            animation: strokeMove 20s linear infinite;
+        }
+
+        @keyframes strokeMove {
+            to {
+                stroke-dashoffset: -100;
+            }
+        }
+
+        .connection-line:hover {
+            stroke-width: 4;
+            opacity: 1;
+        }
+
+        /* Detailed Findings section */
+        .findings-area {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 32px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            margin-bottom: 24px;
+        }
+
+        .findings-area h2 {
+            font-size: 1.5rem;
+            color: var(--accent-sage-dark);
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 12px;
+        }
+
+        .findings-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .finding-card {
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+
+        .finding-card.collision {
+            background-color: var(--color-collision-bg);
+            border-color: rgba(224, 122, 95, 0.25);
+        }
+
+        .finding-card.sync {
+            background-color: var(--color-sync-bg);
+            border-color: rgba(129, 178, 154, 0.25);
+        }
+
+        .finding-icon {
+            font-size: 1.5rem;
+            line-height: 1;
+            padding-top: 2px;
+        }
+
+        .finding-content h4 {
+            font-size: 1.1rem;
+            margin-bottom: 6px;
+        }
+
+        .finding-card.collision h4 {
+            color: var(--color-collision);
+        }
+
+        .finding-card.sync h4 {
+            color: var(--accent-sage-dark);
+        }
+
+        .finding-content p {
+            font-size: 0.9rem;
+            color: var(--text-main);
+        }
+
+        .empty-findings {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        /* AI Prompt Card */
+        .ai-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 32px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            margin-bottom: 24px;
+        }
+
+        .ai-card h2 {
+            font-size: 1.5rem;
+            color: var(--accent-sage-dark);
+            margin-bottom: 8px;
+        }
+
+        .ai-card p.subtitle {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 24px;
+        }
+
+        .prompt-selector {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .prompt-btn {
+            background: var(--bg-wellness);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 10px 16px;
+            font-family: inherit;
+            color: var(--text-main);
+            font-weight: 500;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .prompt-btn.active {
+            background-color: var(--accent-sage-dark);
+            color: white;
+            border-color: var(--accent-sage-dark);
+        }
+
+        .prompt-preview-box {
+            background-color: var(--bg-wellness);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 18px;
+            font-family: 'Inter', monospace;
+            font-size: 0.85rem;
+            white-space: pre-wrap;
+            max-height: 250px;
+            overflow-y: auto;
+            margin-bottom: 16px;
+            color: var(--text-main);
+            border-left: 4px solid var(--accent-sage);
+        }
+
+        .prompt-actions {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .copied-tooltip {
+            color: var(--color-sync);
+            font-weight: 600;
+            font-size: 0.9rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        /* Questionnaire Modal styling */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: rgba(45, 58, 52, 0.45);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 16px;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            max-width: 600px;
+            width: 100%;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            max-height: 90vh;
+            animation: modalFadeIn 0.3s ease;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal-header {
+            background-color: var(--accent-sage-light);
+            padding: 24px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h3 {
+            color: var(--accent-sage-dark);
+            font-size: 1.25rem;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            cursor: pointer;
+        }
+
+        .modal-body {
+            padding: 32px 24px;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .modal-progress {
+            margin-bottom: 24px;
+        }
+
+        .modal-progress-bar {
+            height: 6px;
+            background-color: var(--bg-wellness);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+
+        .modal-progress-fill {
+            height: 100%;
+            background-color: var(--accent-sage);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .modal-progress-text {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .q-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--accent-sage-dark);
+            margin-bottom: 24px;
+            line-height: 1.4;
+        }
+
+        .options-col {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .opt-btn {
+            background: var(--bg-wellness);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 16px 20px;
+            font-family: inherit;
+            color: var(--text-main);
+            font-size: 0.95rem;
+            text-align: left;
+            cursor: pointer;
+            transition: var(--transition);
+            line-height: 1.4;
+        }
+
+        .opt-btn:hover {
+            background-color: var(--accent-sage-light);
+            border-color: var(--accent-sage);
+            transform: translateX(4px);
+        }
+
+        .result-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 16px;
+        }
+
+        .result-code-box {
+            background-color: var(--bg-wellness);
+            border: 1px dashed var(--accent-sage);
+            padding: 16px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 1rem;
+            word-break: break-all;
+            margin: 12px 0;
+            width: 100%;
+            color: var(--accent-sage-dark);
+            font-weight: 600;
+        }
+
+        /* Import Code Box */
+        .import-box {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 10px;
+            padding: 16px;
+            background-color: var(--bg-wellness);
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+        }
+
+        .import-box p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .import-input-group {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            width: 100%;
+        }
+
+        .import-input-group input {
+            flex: 1;
+            min-width: 0;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 10px 12px;
+            font-family: inherit;
+            font-size: 0.85rem;
+            height: 40px;
+            box-sizing: border-box;
+        }
+
+        .import-input-group input:focus {
+            outline: none;
+            border-color: var(--accent-sage);
+        }
+
+        .import-input-group button {
+            width: auto;
+            padding: 0 16px;
+            font-size: 0.85rem;
+            height: 40px;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Custom Alert Modal */
+        .modal-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(45, 58, 52, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            backdrop-filter: blur(4px);
+        }
+
+        .custom-alert-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 32px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+            max-width: 450px;
+            width: 90%;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            animation: modalFadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .custom-alert-card h3 {
+            font-size: 1.3rem;
+            color: var(--accent-sage-dark);
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .custom-alert-card p {
+            font-size: 0.95rem;
+            color: var(--text-main);
+            word-break: break-word;
+        }
+
+        .custom-alert-code-box {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            background-color: var(--bg-wellness);
+            padding: 16px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            margin: 8px 0;
+        }
+
+        .custom-alert-code-box code {
+            font-family: monospace;
+            font-size: 0.85rem;
+            color: var(--accent-sage-dark);
+            word-break: break-all;
+            white-space: pre-wrap;
+        }
+
+        .custom-alert-actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 8px;
+        }
+
+        .custom-alert-actions button {
+            width: auto;
+            padding: 8px 24px;
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 0.8rem;
+            border-radius: 6px;
+        }
+
+        /* AI Prompt Instructions */
+        .prompt-instruction-card {
+            background-color: var(--bg-wellness);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .instruction-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+        }
+
+        .step-num {
+            background-color: var(--accent-sage-dark);
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .instruction-step p {
+            font-size: 0.95rem;
+            color: var(--text-main);
+            line-height: 1.5;
+        }
+
+        .ai-links {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 8px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(132, 169, 140, 0.15);
+        }
+
+        .ai-link-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .ai-link-btn.claude {
+            background-color: #F4EFEA;
+            color: #D97706;
+            border: 1px solid rgba(217, 119, 6, 0.2);
+        }
+        .ai-link-btn.claude:hover {
+            background-color: #EDE5DC;
+            box-shadow: 0 2px 8px rgba(217, 119, 6, 0.1);
+        }
+
+        .ai-link-btn.gemini {
+            background-color: #F0F4F9;
+            color: #1A73E8;
+            border: 1px solid rgba(26, 115, 232, 0.2);
+        }
+        .ai-link-btn.gemini:hover {
+            background-color: #E3ECF5;
+            box-shadow: 0 2px 8px rgba(26, 115, 232, 0.1);
+        }
+
+        .ai-link-btn.chatgpt {
+            background-color: #F0F7F4;
+            color: #10a37f;
+            border: 1px solid rgba(16, 163, 127, 0.2);
+        }
+        .ai-link-btn.chatgpt:hover {
+            background-color: #E2EFE9;
+            box-shadow: 0 2px 8px rgba(16, 163, 127, 0.1);
+        }
+
+        /* Responsive Visualizer */
+        @media (max-width: 600px) {
+            .nodes-col {
+                width: 42%;
+            }
+            .map-node {
+                font-size: 0.65rem;
+                padding: 6px 8px;
+            }
+            .visualizer-card {
+                padding: 12px;
+                min-height: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Top Header -->
+    <header class="dashboard-header">
+        <div class="header-title-area">
+            <h1>
+                <svg width="32" height="32" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H7c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.04-.42 1.99-1.07 2.75z"/></svg>
+                Psykometrisk Relationsanalysator
+            </h1>
+            <p>Interaktiv wellness-vy för asymmetrisk relationsanalys</p>
+        </div>
+
+        <div class="sync-score-card">
+            <div class="progress-ring-container">
+                <svg class="progress-ring" width="80" height="80">
+                    <circle class="progress-ring-bg" cx="40" cy="40" r="32"></circle>
+                    <circle id="sync-ring" class="progress-ring-bar" cx="40" cy="40" r="32" stroke-dasharray="201.06" stroke-dashoffset="201.06"></circle>
+                </svg>
+                <div id="sync-score-val" class="progress-ring-text">0%</div>
+            </div>
+            <div class="sync-info">
+                <h3>Logistisk Synkronisering</h3>
+                <p>Mått på synk vs. kollisionsmönster i relationen</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Names Config Card -->
+    <section class="config-card">
+        <div class="config-title">Konfigurera Partner-namn</div>
+        <div class="input-group">
+            <label for="name-a-input">Subjekt A:</label>
+            <input type="text" id="name-a-input" value="David" onchange="updateNames()">
+        </div>
+        <div class="input-group">
+            <label for="name-b-input">Subjekt B:</label>
+            <input type="text" id="name-b-input" value="Emma" onchange="updateNames()">
+        </div>
+    </section>
+
+    <!-- Main Grid -->
+    <main class="dashboard-grid">
+        <!-- Subjekt A Column -->
+        <section class="subject-card" id="card-subject-a">
+            <div class="subject-card-header">
+                <h2 class="subj-name-title-a">David</h2>
+                <span id="subj-status-a" class="badge-status status-empty">Inga data</span>
+            </div>
+
+            <!-- Attachment Profile -->
+            <div class="stat-section">
+                <h3>Anknytningsmönster</h3>
+                <div class="stat-row">
+                    <div class="stat-label">
+                        <span>Ångestfylld (Anxiety)</span>
+                        <span class="stat-value-text" id="anx-val-a">0.00</span>
+                    </div>
+                    <div class="stat-bar-container">
+                        <div id="anx-bar-a" class="stat-bar"></div>
+                    </div>
+                </div>
+                <div class="stat-row">
+                    <div class="stat-label">
+                        <span>Undvikande (Avoidance)</span>
+                        <span class="stat-value-text" id="av-val-a">0.00</span>
+                    </div>
+                    <div class="stat-bar-container">
+                        <div id="av-bar-a" class="stat-bar"></div>
+                    </div>
+                </div>
+                <div class="stat-row">
+                    <div class="stat-label">
+                        <span>Stressrespons</span>
+                        <span class="stat-value-text" id="stress-val-a">—</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sensory Processing -->
+            <div class="stat-section">
+                <h3>Sensorisk Känslighet (HSP)</h3>
+                <div class="stat-row">
+                    <div class="stat-label">
+                        <span>Tröskel till överbelastning</span>
+                        <span class="stat-value-text" id="thresh-val-a">8.0h</span>
+                    </div>
+                </div>
+                <div class="stat-row">
+                    <div class="stat-label">
+                        <span>Återhämtningslatens</span>
+                        <span class="stat-value-text" id="recovery-val-a">0.0h</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Conflict Mechanisms -->
+            <div class="stat-section">
+                <h3>Konflikthantering</h3>
+                <div class="stat-row">
+                    <div class="stat-label">
+                        <span>Huvudsaklig konfliktstil (TKI)</span>
+                        <span class="stat-value-text" id="tki-val-a">—</span>
+                    </div>
+                </div>
+                <div class="stat-row">
+                    <div class="stat-label">
+                        <span>Gottman-flaggor</span>
+                    </div>
+                    <div class="pill-list" id="gottman-list-a">
+                        <span class="pill-item">Inga</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="subject-actions">
+                <button class="btn btn-primary" onclick="openTestModal('A')">Gör testet direkt</button>
+                <div class="import-box">
+                    <p>Eller klistra in genererad testkod:</p>
+                    <div class="import-input-group">
+                        <input type="text" id="import-code-a" placeholder="PRA-a23a557a-...">
+                        <button class="btn btn-primary" onclick="importCode('A')">Importera</button>
+                    </div>
+                </div>
+                <button class="btn btn-text" id="btn-export-code-a" style="display:none;" onclick="exportOwnCode('A')">Visa min testkod igen</button>
+            </div>
+        </section>
+
+        <!-- Middle Relations Map Column -->
+        <section class="visualizer-card">
+            <h3>Relationskartläggning</h3>
+            <div class="map-wrapper">
+                <svg id="relations-svg"></svg>
+                <div class="map-cols">
+                    <div class="nodes-col left-nodes" id="nodes-container-a">
+                        <!-- Rendered active nodes for Subject A -->
+                    </div>
+                    <div class="nodes-col right-nodes" id="nodes-container-b">
+                        <!-- Rendered active nodes for Subject B -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Subjekt B Column -->
+        <section class="subject-card" id="card-subject-b">
+            <div class="subject-card-header">
+                <h2 class="subj-name-title-b">Emma</h2>
+                <span id="subj-status-b" class="badge-status status-empty">Inga data</span>
+            </div>
+
+            <!-- Attachment Profile -->
+            <div class="stat-section">
+                <h3>Anknytningsmönster</h3>
+                <div class="stat-row">
+                    <div class="stat-label">
+                        <span>Ångestfylld (Anxiety)</span>
+                        <span class="stat-value-text" id="anx-val-b">0.00</span>
+                    </div>
+                    <div class="stat-bar-container">
+                        <div id="anx-bar-b" class="stat-bar"></div>
+                    </div>
+                </div>
+                <div class="stat-row">
+                    <div class="stat-label">
+                        <span>Undvikande (Avoidance)</span>
+                        <span class="stat-value-text" id="av-val-b">0.00</span>
+                    </div>
+                    <div class="stat-bar-container">
+                        <div id="av-bar-b" class="stat-bar"></div>
+                    </div>
+                </div>
+                <div class="stat-row">
+                    <div class="stat-label">
+                        <span>Stressrespons</span>
+                        <span class="stat-value-text" id="stress-val-b">—</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sensory Processing -->
+            <div class="stat-section">
+                <h3>Sensorisk Känslighet (HSP)</h3>
+                <div class="stat-row">
+                    <div class="stat-label">
+                        <span>Tröskel till överbelastning</span>
+                        <span class="stat-value-text" id="thresh-val-b">8.0h</span>
+                    </div>
+                </div>
+                <div class="stat-row">
+                    <div class="stat-label">
+                        <span>Återhämtningslatens</span>
+                        <span class="stat-value-text" id="recovery-val-b">0.0h</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Conflict Mechanisms -->
+            <div class="stat-section">
+                <h3>Konflikthantering</h3>
+                <div class="stat-row">
+                    <div class="stat-label">
+                        <span>Huvudsaklig konfliktstil (TKI)</span>
+                        <span class="stat-value-text" id="tki-val-b">—</span>
+                    </div>
+                </div>
+                <div class="stat-row">
+                    <div class="stat-label">
+                        <span>Gottman-flaggor</span>
+                    </div>
+                    <div class="pill-list" id="gottman-list-b">
+                        <span class="pill-item">Inga</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="subject-actions">
+                <button class="btn btn-primary" onclick="openTestModal('B')">Gör testet direkt</button>
+                <div class="import-box">
+                    <p>Eller klistra in genererad testkod:</p>
+                    <div class="import-input-group">
+                        <input type="text" id="import-code-b" placeholder="PRA-a23a557a-...">
+                        <button class="btn btn-primary" onclick="importCode('B')">Importera</button>
+                    </div>
+                </div>
+                <button class="btn btn-text" id="btn-export-code-b" style="display:none;" onclick="exportOwnCode('B')">Visa min testkod igen</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Detailed findings -->
+    <section class="findings-area">
+        <h2>Detekterade Relationsdynamiker</h2>
+        <div class="findings-list" id="findings-container">
+            <div class="empty-findings">Inga krockar eller synergier upptäckta än. Fyll i eller importera data för båda parter.</div>
+        </div>
+    </section>
+
+    <!-- AI Prompt Generator -->
+    <section class="ai-card">
+        <h2>AI-Djupanalys Generator</h2>
+        <p class="subtitle">Skapa strukturerade JSON-datapaket och prompts för kopiering till Claude eller Gemini</p>
+        
+        <div class="prompt-selector">
+            <button class="prompt-btn active" id="btn-prompt-joint" onclick="selectPromptType('joint')">Gemensam Relationsanalys (A + B)</button>
+            <button class="prompt-btn" id="btn-prompt-a" onclick="selectPromptType('a')">Individuell Analys för Subjekt A</button>
+            <button class="prompt-btn" id="btn-prompt-b" onclick="selectPromptType('b')">Individuell Analys för Subjekt B</button>
+        </div>
+
+        <div class="prompt-instruction-card">
+            <div class="instruction-step">
+                <span class="step-num">1</span>
+                <p>Välj analysmetod ovan (Gemensam eller Individuell).</p>
+            </div>
+            <div class="instruction-step">
+                <span class="step-num">2</span>
+                <p>Klicka på <strong>Kopiera AI-prompt</strong> för att hämta all klinisk data och förberedda psykolog-prompts till ditt urklipp.</p>
+            </div>
+            <div class="instruction-step">
+                <span class="step-num">3</span>
+                <p>Klistra in i någon av följande ledande AI-chattar för att få din professionella djupanalys genererad:</p>
+            </div>
+            <div class="ai-links">
+                <a href="https://claude.ai" target="_blank" class="ai-link-btn claude">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-top: 1px;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                    Öppna Claude (Rekommenderas)
+                </a>
+                <a href="https://gemini.google.com" target="_blank" class="ai-link-btn gemini">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-top: 1px;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                    Öppna Gemini
+                </a>
+                <a href="https://chatgpt.com" target="_blank" class="ai-link-btn chatgpt">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-top: 1px;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                    Öppna ChatGPT
+                </a>
+            </div>
+        </div>
+
+        <div id="prompt-preview" style="display: none;">Genererar prompt...</div>
+
+        <div class="prompt-actions">
+            <button class="btn btn-primary" style="width: auto;" onclick="copyPrompt()">Kopiera AI-prompt</button>
+        </div>
+    </section>
+</div>
+
+<!-- Questionnaire Modal -->
+<div class="modal-overlay" id="test-modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 id="modal-title-text">Frågebatteri</h3>
+            <button class="close-btn" onclick="closeTestModal()">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div id="q-flow-area">
+                <div class="modal-progress">
+                    <div class="modal-progress-bar">
+                        <div class="modal-progress-fill" id="q-progress-bar"></div>
+                    </div>
+                    <div class="modal-progress-text">
+                        <span id="q-progress-num">Fråga 1 av 40</span>
+                        <span id="q-progress-module">Modul: Anknytning</span>
+                    </div>
+                </div>
+                <div class="q-text" id="q-text-content">Hur reagerar du oftast...?</div>
+                <div class="options-col" id="q-options-container">
+                    <!-- Options buttons will render here -->
+                </div>
+            </div>
+            <div id="q-result-area" class="result-screen" style="display: none;">
+                <p style="color: var(--accent-sage-dark); font-weight: 600; font-size: 1.25rem;">Evaluering Klar!</p>
+                <p>Svaren har sparats lokalt på din enhet. För att din partner ska kunna se dina resultat på sin dashboard, kopiera koden nedan och skicka den till hen.</p>
+                <div class="result-code-box" id="q-code-display">PRA-...</div>
+                <button class="btn btn-primary" onclick="copyResultCode()">Kopiera checksumma</button>
+                <button class="btn btn-secondary" onclick="closeTestModal()" style="margin-top: 10px;">Gå till Dashboard</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    /*{{QUESTIONS}}*/
+    /*{{TRAITS}}*/
+    /*{{FINGERPRINT}}*/
+
+    // App state
+    let state = {
+        nameA: "David",
+        nameB: "Emma",
+        dataA: null, // { scores, identified_traits, answers }
+        dataB: null  // { scores, identified_traits, answers }
+    };
+
+    // Modal test flow variables
+    let activeSubject = null;
+    let currentModuleIndex = 0;
+    let currentQuestionIndex = 0;
+    let tempAnswers = [];
+    const modulesOrder = ["attachment", "hsp", "gottman", "tki"];
+    let totalQuestionsCount = 0;
+    modulesOrder.forEach(m => totalQuestionsCount += QUESTIONS_DB[m].length);
+
+    let activePromptType = "joint";
+
+    // Initialize application on load
+    window.onload = function() {
+        loadFromLocalStorage();
+        updateNames();
+        calculateAndRender();
+        
+        window.addEventListener('resize', () => {
+            if (state.dataA && state.dataB) {
+                drawConnections();
+            }
+        });
+    };
+
+    function loadFromLocalStorage() {
+        const savedFingerprint = localStorage.getItem("pra_fingerprint");
+        if (savedFingerprint && savedFingerprint !== SYSTEM_FINGERPRINT) {
+            console.warn("Versionskonflikt upptäckt i LocalStorage. Rensar föråldrad enkätcache.");
+            localStorage.removeItem("pra_dataA");
+            localStorage.removeItem("pra_dataB");
+            localStorage.removeItem("pra_fingerprint");
+        } else {
+            let savedDataA = localStorage.getItem("pra_dataA");
+            let savedDataB = localStorage.getItem("pra_dataB");
+            
+            if (savedDataA) {
+                try { 
+                    let parsed = JSON.parse(savedDataA);
+                    if (parsed && parsed.answers && !parsed.attachment_profile) {
+                        console.log("Migrerar Subjekt A localStorage-cache till kapslat format...");
+                        const calculated = calculateSubjectData(parsed.answers);
+                        parsed = {
+                            ...calculated,
+                            answers: parsed.answers
+                        };
+                    }
+                    state.dataA = parsed;
+                } catch(e) {
+                    console.error("Fel vid migreing av Subjekt A:", e);
+                }
+            }
+            if (savedDataB) {
+                try { 
+                    let parsed = JSON.parse(savedDataB);
+                    if (parsed && parsed.answers && !parsed.attachment_profile) {
+                        console.log("Migrerar Subjekt B localStorage-cache till kapslat format...");
+                        const calculated = calculateSubjectData(parsed.answers);
+                        parsed = {
+                            ...calculated,
+                            answers: parsed.answers
+                        };
+                    }
+                    state.dataB = parsed;
+                } catch(e) {
+                    console.error("Fel vid migreing av Subjekt B:", e);
+                }
+            }
+        }
+
+        const savedNameA = localStorage.getItem("pra_nameA");
+        const savedNameB = localStorage.getItem("pra_nameB");
+        if (savedNameA) state.nameA = savedNameA;
+        if (savedNameB) state.nameB = savedNameB;
+
+        document.getElementById("name-a-input").value = state.nameA;
+        document.getElementById("name-b-input").value = state.nameB;
+    }
+
+    function saveToLocalStorage() {
+        localStorage.setItem("pra_nameA", state.nameA);
+        localStorage.setItem("pra_nameB", state.nameB);
+        localStorage.setItem("pra_fingerprint", SYSTEM_FINGERPRINT);
+        if (state.dataA) {
+            localStorage.setItem("pra_dataA", JSON.stringify(state.dataA));
+        } else {
+            localStorage.removeItem("pra_dataA");
+        }
+        if (state.dataB) {
+            localStorage.setItem("pra_dataB", JSON.stringify(state.dataB));
+        } else {
+            localStorage.removeItem("pra_dataB");
+        }
+    }
+
+    function updateNames() {
+        state.nameA = document.getElementById("name-a-input").value.trim() || "Subjekt A";
+        state.nameB = document.getElementById("name-b-input").value.trim() || "Subjekt B";
+
+        // Update titles
+        document.querySelectorAll(".subj-name-title-a").forEach(el => el.textContent = state.nameA);
+        document.querySelectorAll(".subj-name-title-b").forEach(el => el.textContent = state.nameB);
+
+        saveToLocalStorage();
+        generatePromptText();
+    }
+
+    // Modal questionnaire functions
+    function openTestModal(subj) {
+        activeSubject = subj;
+        const subjName = subj === 'A' ? state.nameA : state.nameB;
+        document.getElementById("modal-title-text").textContent = `Evaluering: ${subjName}`;
+        
+        // Reset questionnaire variables
+        currentModuleIndex = 0;
+        currentQuestionIndex = 0;
+        tempAnswers = [];
+
+        document.getElementById("q-flow-area").style.display = "block";
+        document.getElementById("q-result-area").style.display = "none";
+        document.getElementById("test-modal").style.display = "flex";
+
+        showQuestion();
+    }
+
+    function closeTestModal() {
+        document.getElementById("test-modal").style.display = "none";
+        calculateAndRender();
+    }
+
+    function showQuestion() {
+        const currentModule = modulesOrder[currentModuleIndex];
+        const questionsList = QUESTIONS_DB[currentModule];
+        const question = questionsList[currentQuestionIndex];
+        
+        // Progress
+        const questionsCompleted = tempAnswers.length;
+        const fillPercent = (questionsCompleted / totalQuestionsCount) * 100;
+        document.getElementById("q-progress-bar").style.width = `${fillPercent}%`;
+        document.getElementById("q-progress-num").textContent = `Fråga ${questionsCompleted + 1} av ${totalQuestionsCount}`;
+        
+        let SwedishModuleName = "";
+        switch (currentModule) {
+            case "attachment": SwedishModuleName = "Anknytningsteori"; break;
+            case "hsp": SwedishModuleName = "Sensorik (HSP)"; break;
+            case "gottman": SwedishModuleName = "Konfliktmönster (Gottman)"; break;
+            case "tki": SwedishModuleName = "Konflikthanteringsstil (TKI)"; break;
+        }
+        document.getElementById("q-progress-module").textContent = `Modul: ${SwedishModuleName}`;
+        
+        // Text content
+        document.getElementById("q-text-content").textContent = question.text;
+
+        // Render options buttons
+        const optionsContainer = document.getElementById("q-options-container");
+        optionsContainer.innerHTML = "";
+        question.options.forEach((opt, idx) => {
+            const btn = document.createElement("button");
+            btn.className = "opt-btn";
+            btn.textContent = opt.text;
+            btn.onclick = () => selectOption(idx);
+            optionsContainer.appendChild(btn);
+        });
+    }
+
+    function selectOption(idx) {
+        tempAnswers.push(idx);
+
+        const currentModule = modulesOrder[currentModuleIndex];
+        const questionsList = QUESTIONS_DB[currentModule];
+        
+        currentQuestionIndex++;
+        if (currentQuestionIndex >= questionsList.length) {
+            currentModuleIndex++;
+            currentQuestionIndex = 0;
+        }
+
+        if (currentModuleIndex >= modulesOrder.length) {
+            saveQuestionnaireResults();
+        } else {
+            showQuestion();
+        }
+    }
+
+    function saveQuestionnaireResults() {
+        // Calculate scores locally
+        try {
+            const calculated = calculateSubjectData(tempAnswers);
+            const calculatedObj = {
+                scores: calculated.scores,
+                identified_traits: calculated.identified_traits,
+                answers: tempAnswers
+            };
+
+            if (activeSubject === 'A') {
+                state.dataA = calculatedObj;
+            } else {
+                state.dataB = calculatedObj;
+            }
+
+            saveToLocalStorage();
+
+            // Display results code screen
+            document.getElementById("q-flow-area").style.display = "none";
+            document.getElementById("q-result-area").style.display = "flex";
+
+            // Generate checksum
+            const answerString = tempAnswers.join("");
+            const b64 = btoa(answerString);
+            const checksum = `PRA-${SYSTEM_FINGERPRINT}-${b64}`;
+            document.getElementById("q-code-display").textContent = checksum;
+
+        } catch (e) {
+            showCustomAlert("Fel", "Ett fel uppstod under beräkningen: " + e.message);
+            closeTestModal();
+        }
+    }
+
+    function copyResultCode() {
+        const code = document.getElementById("q-code-display").textContent;
+        navigator.clipboard.writeText(code).then(() => {
+            showCustomAlert("Checksumma kopierad", "Din relationskod har kopierats till urklipp.");
+        });
+    }
+
+    // Import external hash code
+    function importCode(subj) {
+        const inputId = subj === 'A' ? 'import-code-a' : 'import-code-b';
+        const rawCode = document.getElementById(inputId).value.trim();
+        
+        if (!rawCode) {
+            showCustomAlert("Inmatning saknas", "Vänligen klistra in en relationskod.");
+            return;
+        }
+
+        try {
+            // Validate and parse code
+            const answers = decodeHashCode(rawCode);
+            const calculated = calculateSubjectData(answers);
+
+            const calculatedObj = {
+                scores: calculated.scores,
+                identified_traits: calculated.identified_traits,
+                answers: answers
+            };
+
+            if (subj === 'A') {
+                state.dataA = calculatedObj;
+            } else {
+                state.dataB = calculatedObj;
+            }
+
+            document.getElementById(inputId).value = ""; // clear input
+            saveToLocalStorage();
+            calculateAndRender();
+            showCustomAlert("Import lyckades", "Svaren har importerats framgångsrikt och relationskartan har uppdaterats.");
+
+        } catch (e) {
+            showCustomAlert("Fel vid import", e.message);
+        }
+    }
+
+    function exportOwnCode(subj) {
+        const data = subj === 'A' ? state.dataA : state.dataB;
+        if (!data || !data.answers) return;
+
+        const answerString = data.answers.join("");
+        const b64 = btoa(answerString);
+        const checksum = `PRA-${SYSTEM_FINGERPRINT}-${b64}`;
+        
+        showCustomAlert("Dela din testkod", checksum, true);
+    }
+
+    // Engine Core in JS
+    function decodeHashCode(code) {
+        // PRA-FINGERPRINT-BASE64
+        const parts = code.trim().split('-');
+        if (parts.length !== 3 || parts[0] !== 'PRA') {
+            throw new Error("Ogiltigt kodformat. Koden måste starta med 'PRA-'.");
+        }
+        
+        const fp = parts[1];
+        if (fp !== SYSTEM_FINGERPRINT) {
+            throw new Error(`Versionskonflikt! Koden är skapad med ett äldre frågebatteri (kodversion: ${fp}, systemversion: ${SYSTEM_FINGERPRINT}). Be din partner uppdatera sin vy.`);
+        }
+        
+        let b64 = parts[2];
+        const paddingNeeded = (4 - b64.length % 4) % 4;
+        b64 += "=".repeat(paddingNeeded);
+        
+        try {
+            const decoded = atob(b64);
+            const answers = [];
+            for (let i = 0; i < decoded.length; i++) {
+                const val = parseInt(decoded[i]);
+                if (isNaN(val)) throw new Error();
+                answers.push(val);
+            }
+            return answers;
+        } catch (e) {
+            throw new Error("Kunde inte avkoda base64-kodens data.");
+        }
+    }
+
+    function calculateSubjectData(answers) {
+        const expectedLength = totalQuestionsCount;
+        if (answers.length !== expectedLength) {
+            throw new Error(`Felaktigt antal svar (${answers.length} istället för förväntade ${expectedLength}).`);
+        }
+        
+        let charIdx = 0;
+        const scores = {
+            anxiety_score: 0,
+            avoidance_score: 0,
+            stress_response: null,
+            overload_threshold_hrs: 8.0,
+            recovery_latency_hrs: 0,
+            primary_tki: null,
+            gottman_flags: []
+        };
+        
+        // Attachment
+        let totAnx = 0, totAv = 0, maxAnx = 0, maxAv = 0;
+        QUESTIONS_DB.attachment.forEach(q => {
+            const val = answers[charIdx++];
+            const opt = q.options[val];
+            totAnx += opt.impact.anxiety;
+            totAv += opt.impact.avoidance;
+            maxAnx += Math.max(...q.options.map(o => o.impact.anxiety));
+            maxAv += Math.max(...q.options.map(o => o.impact.avoidance));
+        });
+        scores.anxiety_score = maxAnx > 0 ? parseFloat((totAnx / maxAnx).toFixed(2)) : 0.0;
+        scores.avoidance_score = maxAv > 0 ? parseFloat((totAv / maxAv).toFixed(2)) : 0.0;
+        
+        // HSP
+        let totThresh = 8.0;
+        let totLat = 0;
+        QUESTIONS_DB.hsp.forEach(q => {
+            const val = answers[charIdx++];
+            const opt = q.options[val];
+            totThresh += opt.impact.threshold;
+            totLat += opt.impact.latency;
+        });
+        scores.overload_threshold_hrs = Math.max(1.0, Math.min(12.0, parseFloat(totThresh.toFixed(1))));
+        scores.recovery_latency_hrs = Math.max(0.0, Math.min(12.0, parseFloat(totLat.toFixed(1))));
+        
+        // Gottman
+        let flags = [];
+        const stressCounts = { hyperactivation: 0, deactivation: 0, secure: 0 };
+        QUESTIONS_DB.gottman.forEach(q => {
+            const val = answers[charIdx++];
+            const opt = q.options[val];
+            if (opt.impact.flags) flags.push(...opt.impact.flags);
+            if (opt.impact.stress) stressCounts[opt.impact.stress]++;
+        });
+        const counts = {};
+        flags.forEach(f => counts[f] = (counts[f] || 0) + 1);
+        scores.gottman_flags = Object.keys(counts).filter(f => counts[f] >= 2);
+        
+        let primaryStress = "secure";
+        let maxStress = -1;
+        Object.keys(stressCounts).forEach(k => {
+            if (stressCounts[k] > maxStress) {
+                maxStress = stressCounts[k];
+                primaryStress = k;
+            }
+        });
+        scores.stress_response = primaryStress;
+        
+        // TKI
+        const tkiScores = { competing: 0, collaborating: 0, compromising: 0, avoiding: 0, accommodating: 0 };
+        QUESTIONS_DB.tki.forEach(q => {
+            const val = answers[charIdx++];
+            const opt = q.options[val];
+            Object.keys(tkiScores).forEach(style => {
+                if (opt.impact[style]) tkiScores[style] += opt.impact[style];
+            });
+        });
+        
+        let primaryTki = "compromising";
+        let maxTkiVal = -1;
+        Object.keys(tkiScores).forEach(style => {
+            if (tkiScores[style] > maxTkiVal) {
+                maxTkiVal = tkiScores[style];
+                primaryTki = style;
+            }
+        });
+        scores.primary_tki = primaryTki.charAt(0).toUpperCase() + primaryTki.slice(1);
+        
+        // Identified Traits
+        const identifiedTraits = [];
+        TRAITS_DB.traits.forEach(trait => {
+            let match = true;
+            Object.keys(trait.conditions).forEach(varPath => {
+                const cond = trait.conditions[varPath];
+                let val = null;
+                if (varPath in scores) {
+                    val = scores[varPath];
+                }
+                if (val === null) {
+                    match = false;
+                    return;
+                }
+                if ('min' in cond && val < cond.min) match = false;
+                if ('max' in cond && val > cond.max) match = false;
+            });
+            if (match) identifiedTraits.push(trait.id);
+        });
+        
+        return {
+            identified_traits: identifiedTraits,
+            attachment_profile: {
+                anxiety_score: { computed: scores.anxiety_score, override: null, effective: scores.anxiety_score },
+                avoidance_score: { computed: scores.avoidance_score, override: null, effective: scores.avoidance_score },
+                stress_response: { computed: scores.stress_response, override: null, effective: scores.stress_response }
+            },
+            sensory_processing: {
+                overload_threshold_hrs: { computed: scores.overload_threshold_hrs, override: null, effective: scores.overload_threshold_hrs },
+                recovery_latency_hrs: { computed: scores.recovery_latency_hrs, override: null, effective: scores.recovery_latency_hrs }
+            },
+            conflict_mechanisms: {
+                primary_tki: { computed: scores.primary_tki, override: null, effective: scores.primary_tki },
+                gottman_flags: { computed: scores.gottman_flags, override: null, effective: scores.gottman_flags }
+            },
+            scores: scores
+        };
+    }
+
+    function getByPath(obj, path) {
+        const parts = path.split('.');
+        let curr = obj;
+        for (let part of parts) {
+            if (curr && typeof curr === 'object' && part in curr) {
+                curr = curr[part];
+            } else {
+                return null;
+            }
+        }
+        return curr;
+    }
+
+    function evaluateCondition(subjectData, cond) {
+        const path = cond.path;
+        const operator = cond.operator;
+        const value = cond.value;
+        
+        const actualValue = getByPath(subjectData, path);
+        if (actualValue === null || actualValue === undefined) return false;
+        
+        if (operator === "equal") {
+            return actualValue === value;
+        } else if (operator === "contains") {
+            if (Array.isArray(actualValue)) {
+                return actualValue.includes(value);
+            } else if (typeof actualValue === 'string') {
+                return actualValue.includes(value);
+            }
+            return false;
+        }
+        return false;
+    }
+
+    function evaluateRelationship(subA, subB) {
+        const subjects = { D: subA, E: subB };
+        const connections = [];
+        const criticalWarnings = [];
+        const attractionFactors = [];
+        
+        TRAITS_DB.interaction_rules.forEach(rule => {
+            let triggered = true;
+            rule.conditions.forEach(cond => {
+                const subData = subjects[cond.subject];
+                if (!subData) {
+                    triggered = false;
+                    return;
+                }
+                if (!evaluateCondition(subData, cond)) {
+                    triggered = false;
+                }
+            });
+            
+            if (triggered) {
+                const sourceNodes = [];
+                const targetNodes = [];
+                rule.conditions.forEach(cond => {
+                    const val = cond.value;
+                    if (cond.subject === "D") {
+                        sourceNodes.push(`D_${val}`);
+                    } else if (cond.subject === "E") {
+                        targetNodes.push(`E_${val}`);
+                    }
+                });
+                
+                const sourceNode = sourceNodes.length > 0 ? sourceNodes[0] : "D_General";
+                const targetNode = targetNodes.length > 0 ? targetNodes[0] : "E_General";
+                
+                connections.push({
+                    source_node: sourceNode,
+                    target_node: targetNode,
+                    edge_type: rule.type,
+                    evidence: rule.id,
+                    description: rule.description
+                });
+                
+                if (rule.type === "collision") {
+                    criticalWarnings.push(rule.description);
+                } else if (rule.type === "attraction") {
+                    attractionFactors.push(rule.description);
+                }
+            }
+        });
+        
+        let syncScore = 1.0;
+        connections.forEach(conn => {
+            if (conn.edge_type === 'collision') {
+                syncScore -= 0.2;
+            }
+        });
+        
+        const dTki = subA.scores.primary_tki;
+        const eTki = subB.scores.primary_tki;
+        if (dTki && eTki) {
+            if (dTki === "Collaborating" && eTki === "Collaborating") {
+                syncScore += 0.1;
+            } else if (dTki === "Competing" && eTki === "Competing") {
+                syncScore -= 0.15;
+            }
+        }
+        
+        syncScore = Math.max(0.0, Math.min(1.0, syncScore));
+        
+        return {
+            connections,
+            critical_warnings: Array.from(new Set(criticalWarnings)),
+            attraction_factors: Array.from(new Set(attractionFactors)),
+            logistical_sync: parseFloat((syncScore * 100).toFixed(1))
+        };
+    }
+
+    // Rendering UI
+    function calculateAndRender() {
+        try {
+            renderSubjectColumn('A', state.dataA);
+            renderSubjectColumn('B', state.dataB);
+
+            if (state.dataA && state.dataB) {
+                const analysis = evaluateRelationship(state.dataA, state.dataB);
+                
+                // Sync Ring Animation
+                const circle = document.getElementById("sync-ring");
+                const valEl = document.getElementById("sync-score-val");
+                const pct = analysis.logistical_sync;
+                
+                // SVG perimeter for r=32 is 2*PI*32 = 201.06
+                const offset = 201.06 - (pct / 100) * 201.06;
+                circle.style.strokeDashoffset = offset;
+                valEl.textContent = `${pct}%`;
+
+                renderVisualMap(analysis);
+                renderDetailedFindings(analysis);
+            } else {
+                // Default reset sync scores
+                document.getElementById("sync-ring").style.strokeDashoffset = 201.06;
+                document.getElementById("sync-score-val").textContent = "0%";
+                document.getElementById("relations-svg").innerHTML = "";
+                document.getElementById("nodes-container-a").innerHTML = "";
+                document.getElementById("nodes-container-b").innerHTML = "";
+                document.getElementById("findings-container").innerHTML = `
+                    <div class="empty-findings">Inga krockar eller synergier upptäckta än. Fyll i eller importera data för båda parter.</div>
+                `;
+            }
+
+            generatePromptText();
+        } catch (error) {
+            console.error("Fel vid rendering av dashboard:", error);
+            state.dataA = null;
+            state.dataB = null;
+            saveToLocalStorage();
+            alert("Ett internt fel uppstod vid renderingen. Webbsidans cache har återställts.");
+            window.location.reload();
+        }
+    }
+
+    function renderSubjectColumn(subj, data) {
+        const prefix = subj === 'A' ? '-a' : '-b';
+        const statusEl = document.getElementById(`subj-status${prefix}`);
+        const exportBtn = document.getElementById(`btn-export-code${prefix}`);
+
+        if (!data) {
+            statusEl.textContent = "Inga data";
+            statusEl.className = "badge-status status-empty";
+            exportBtn.style.display = "none";
+            
+            // Reset fields
+            document.getElementById(`anx-val${prefix}`).textContent = "0.00";
+            document.getElementById(`anx-bar${prefix}`).style.width = "0%";
+            document.getElementById(`av-val${prefix}`).textContent = "0.00";
+            document.getElementById(`av-bar${prefix}`).style.width = "0%";
+            document.getElementById(`stress-val${prefix}`).textContent = "—";
+            document.getElementById(`thresh-val${prefix}`).textContent = "8.0h";
+            document.getElementById(`recovery-val${prefix}`).textContent = "0.0h";
+            document.getElementById(`tki-val${prefix}`).textContent = "—";
+            document.getElementById(`gottman-list${prefix}`).innerHTML = '<span class="pill-item">Inga</span>';
+            return;
+        }
+
+        statusEl.textContent = "Klar";
+        statusEl.className = "badge-status status-complete";
+        exportBtn.style.display = "block";
+
+        // Anxiety / Avoidance
+        document.getElementById(`anx-val${prefix}`).textContent = data.scores.anxiety_score.toFixed(2);
+        document.getElementById(`anx-bar${prefix}`).style.width = `${data.scores.anxiety_score * 100}%`;
+        document.getElementById(`av-val${prefix}`).textContent = data.scores.avoidance_score.toFixed(2);
+        document.getElementById(`av-bar${prefix}`).style.width = `${data.scores.avoidance_score * 100}%`;
+
+        // Stress response translation
+        let stressText = "Trygg";
+        if (data.scores.stress_response === 'hyperactivation') stressText = "Hyperaktivering";
+        if (data.scores.stress_response === 'deactivation') stressText = "Avaktivering";
+        document.getElementById(`stress-val${prefix}`).textContent = stressText;
+
+        // HSP
+        document.getElementById(`thresh-val${prefix}`).textContent = `${data.scores.overload_threshold_hrs} timmar`;
+        document.getElementById(`recovery-val${prefix}`).textContent = `${data.scores.recovery_latency_hrs} timmar`;
+
+        // TKI
+        let SwedishTki = "";
+        switch (data.scores.primary_tki) {
+            case "Competing": SwedishTki = "Konkurrerande (Competing)"; break;
+            case "Collaborating": SwedishTki = "Samarbetande (Collaborating)"; break;
+            case "Compromising": SwedishTki = "Kompromissande (Compromising)"; break;
+            case "Avoiding": SwedishTki = "Undvikande (Avoiding)"; break;
+            case "Accommodating": SwedishTki = "Anpassande (Accommodating)"; break;
+            default: SwedishTki = "Okänd";
+        }
+        document.getElementById(`tki-val${prefix}`).textContent = SwedishTki;
+
+        // Gottman Flags
+        const gottmanList = document.getElementById(`gottman-list${prefix}`);
+        gottmanList.innerHTML = "";
+        if (data.scores.gottman_flags.length === 0) {
+            gottmanList.innerHTML = '<span class="pill-item">Inga flaggor</span>';
+        } else {
+            data.scores.gottman_flags.forEach(f => {
+                const span = document.createElement("span");
+                span.className = "pill-item warning";
+                span.textContent = f;
+                gottmanList.appendChild(span);
+            });
+        }
+    }
+
+    function renderVisualMap(analysis) {
+        const containerA = document.getElementById("nodes-container-a");
+        const containerB = document.getElementById("nodes-container-b");
+
+        containerA.innerHTML = "";
+        containerB.innerHTML = "";
+
+        const connections = analysis.connections;
+
+        // Collect all nodes referenced in active connections
+        const activeNodesA = new Set();
+        const activeNodesB = new Set();
+
+        connections.forEach(conn => {
+            if (conn.source_node.startsWith('D_')) {
+                activeNodesA.add(conn.source_node.replace('D_', ''));
+            }
+            if (conn.target_node.startsWith('E_')) {
+                activeNodesB.add(conn.target_node.replace('E_', ''));
+            }
+        });
+
+        // Add identified traits nodes anyway to make columns look complete
+        state.dataA.identified_traits.forEach(t => activeNodesA.add(t));
+        state.dataB.identified_traits.forEach(t => activeNodesB.add(t));
+
+        // Add additional indicators if involved in rules
+        if (state.dataA.scores.stress_response) activeNodesA.add(state.dataA.scores.stress_response);
+        if (state.dataB.scores.stress_response) activeNodesB.add(state.dataB.scores.stress_response);
+        if (state.dataA.scores.primary_tki) activeNodesA.add(state.dataA.scores.primary_tki);
+        if (state.dataB.scores.primary_tki) activeNodesB.add(state.dataB.scores.primary_tki);
+        
+        state.dataA.scores.gottman_flags.forEach(f => activeNodesA.add(f));
+        state.dataB.scores.gottman_flags.forEach(f => activeNodesB.add(f));
+
+        // Draw node elements
+        const SwedishLabel = (nodeId) => {
+            switch(nodeId) {
+                case "ANXIOUS_PREOCCUPIED": return "Ångestfylld Anknytning";
+                case "DISMISSIVE_AVOIDANT": return "Avfärdande Undvikande";
+                case "FEARFUL_AVOIDANT": return "Räddhågsen Undvikande";
+                case "HSP_EOE": return "Lättöverväldigad (HSP-EOE)";
+                case "HSP_LST": return "Låg sensorisk tröskel";
+                case "hyperactivation": return "Hyperaktiverad Stress";
+                case "deactivation": return "Avaktiverad Stress";
+                case "secure": return "Trygg stressrespons";
+                case "Competing": return "Konkurrerande konfliktstil";
+                case "Avoiding": return "Undvikande konfliktstil";
+                case "Compromising": return "Kompromissande konfliktstil";
+                case "Collaborating": return "Samarbetande stil";
+                case "Accommodating": return "Anpassande stil";
+                default: return nodeId;
+            }
+        };
+
+        // Render A's nodes
+        Array.from(activeNodesA).forEach(nodeId => {
+            const div = document.createElement("div");
+            div.id = `node-A-${nodeId}`;
+            div.className = "map-node";
+            div.textContent = SwedishLabel(nodeId);
+            
+            // Highlight if connected
+            const hasConnection = connections.some(c => c.source_node === `D_${nodeId}` || c.target_node === `D_${nodeId}`);
+            if (hasConnection) {
+                const isCollision = connections.some(c => (c.source_node === `D_${nodeId}` || c.target_node === `D_${nodeId}`) && c.edge_type === 'collision');
+                div.className += isCollision ? " active-conn collision-node" : " active-conn";
+            }
+
+            containerA.appendChild(div);
+        });
+
+        // Render B's nodes
+        Array.from(activeNodesB).forEach(nodeId => {
+            const div = document.createElement("div");
+            div.id = `node-B-${nodeId}`;
+            div.className = "map-node";
+            div.textContent = SwedishLabel(nodeId);
+
+            const hasConnection = connections.some(c => c.source_node === `E_${nodeId}` || c.target_node === `E_${nodeId}`);
+            if (hasConnection) {
+                const isCollision = connections.some(c => (c.source_node === `E_${nodeId}` || c.target_node === `E_${nodeId}`) && c.edge_type === 'collision');
+                div.className += isCollision ? " active-conn collision-node" : " active-conn";
+            }
+
+            containerB.appendChild(div);
+        });
+
+        // Trigger line rendering on next render tick
+        setTimeout(() => drawConnections(analysis), 50);
+    }
+
+    function drawConnections(analysis) {
+        const svg = document.getElementById("relations-svg");
+        svg.innerHTML = "";
+        
+        if (!state.dataA || !state.dataB) return;
+        
+        const activeAnalysis = analysis || evaluateRelationship(state.dataA, state.dataB);
+        const svgRect = svg.getBoundingClientRect();
+
+        activeAnalysis.connections.forEach(conn => {
+            // Map node references
+            const sourceId = conn.source_node.replace('D_', 'node-A-').replace('E_', 'node-B-');
+            const targetId = conn.target_node.replace('D_', 'node-A-').replace('E_', 'node-B-');
+
+            const sourceEl = document.getElementById(sourceId);
+            const targetEl = document.getElementById(targetId);
+
+            if (sourceEl && targetEl) {
+                const sourceRect = sourceEl.getBoundingClientRect();
+                const targetRect = targetEl.getBoundingClientRect();
+
+                // Compute anchor coordinates relative to SVG canvas
+                const x1 = sourceRect.right - svgRect.left;
+                const y1 = (sourceRect.top + sourceRect.height / 2) - svgRect.top;
+
+                const x2 = targetRect.left - svgRect.left;
+                const y2 = (targetRect.top + targetRect.height / 2) - svgRect.top;
+
+                // Bezier curve
+                const dx = Math.abs(x2 - x1) * 0.5;
+                const d = `M ${x1} ${y1} C ${x1 + dx} ${y1}, ${x2 - dx} ${y2}, ${x2} ${y2}`;
+
+                const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+                path.setAttribute("d", d);
+                
+                if (conn.edge_type === 'collision') {
+                    path.setAttribute("class", "connection-line collision");
+                    path.setAttribute("stroke", "var(--color-collision)");
+                } else {
+                    path.setAttribute("class", "connection-line sync");
+                    path.setAttribute("stroke", "var(--color-sync)");
+                }
+
+                svg.appendChild(path);
+            }
+        });
+    }
+
+    function formatRuleText(text) {
+        if (!text) return "";
+        return text
+            .replace(/Subjekt D/g, state.nameA)
+            .replace(/Subjekt E/g, state.nameB)
+            .replace(/\bD:s/g, `${state.nameA}:s`)
+            .replace(/\bE:s/g, `${state.nameB}:s`)
+            .replace(/\bD\b/g, state.nameA)
+            .replace(/\bE\b/g, state.nameB);
+    }
+
+    function renderDetailedFindings(analysis) {
+        const container = document.getElementById("findings-container");
+        container.innerHTML = "";
+
+        if (analysis.critical_warnings.length === 0 && analysis.attraction_factors.length === 0) {
+            container.innerHTML = `<div class="empty-findings">Inga krockar eller synergier upptäckta för nuvarande profilkombination.</div>`;
+            return;
+        }
+
+        // Add collisions
+        analysis.critical_warnings.forEach(warn => {
+            const card = document.createElement("div");
+            card.className = "finding-card collision";
+            
+            const friendlyText = formatRuleText(warn);
+
+            card.innerHTML = `
+                <div class="finding-icon">⚠️</div>
+                <div class="finding-content">
+                    <h4>Mönsterkrock</h4>
+                    <p>${friendlyText}</p>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+
+        // Add attractions/sync
+        analysis.attraction_factors.forEach(attr => {
+            const card = document.createElement("div");
+            card.className = "finding-card sync";
+            
+            const friendlyText = formatRuleText(attr);
+
+            card.innerHTML = `
+                <div class="finding-icon">💚</div>
+                <div class="finding-content">
+                    <h4>Synergistyrka</h4>
+                    <p>${friendlyText}</p>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    // AI Prompter Area
+    function selectPromptType(type) {
+        activePromptType = type;
+        
+        // Update tabs active styles
+        document.getElementById("btn-prompt-joint").className = "prompt-btn" + (type === 'joint' ? ' active' : '');
+        document.getElementById("btn-prompt-a").className = "prompt-btn" + (type === 'a' ? ' active' : '');
+        document.getElementById("btn-prompt-b").className = "prompt-btn" + (type === 'b' ? ' active' : '');
+
+        generatePromptText();
+    }
+
+    function generatePromptText() {
+        const previewEl = document.getElementById("prompt-preview");
+        
+        if (activePromptType === 'joint') {
+            if (!state.dataA || !state.dataB) {
+                previewEl.textContent = "[Kräver data från både A och B för gemensam analys]";
+                return;
+            }
+
+            const cleanDataA = {
+                name: state.nameA,
+                scores: state.dataA.scores,
+                identified_traits: state.dataA.identified_traits
+            };
+            const cleanDataB = {
+                name: state.nameB,
+                scores: state.dataB.scores,
+                identified_traits: state.dataB.identified_traits
+            };
+
+            const prompt = `Du agerar som en legitimerad psykolog och relationsexpert specialiserad på anknytningsteori (Attachment Theory), sensoriskt känsliga personer (HSP/SPS), konflikthantering (TKI-metodik) samt Gottmans relationsprinciper.
+
+Här följer den insamlade datan för ett par som lever som särbos efter att tidigare ha separerat som sambos för att rädda relationen. 
+
+Par-data (JSON):
+${JSON.stringify({ subject_A: cleanDataA, subject_B: cleanDataB }, null, 2)}
+
+Uppgift:
+Genomför en djupgående, finkänslig men knivskarp relationsanalys. Fokusera särskilt på följande dynamiker:
+1. Särbo-kontexten: Hur kan de bäst navigera distans kontra närhet givet deras profiler?
+2. HSP-EOE Återhämtningskrock: Hur hanterar de situationer där en behöver isolera sig för sensorisk återhämtning, vilket triggar den andres anknytningsångest (chasing/avoidance-cykeln)?
+3. Stressreaktionsmönster: Analysera deras interaktion vid emotionell aktivering (hyperaktivering etc.).
+4. TKI & Gottman: Identifiera hur deras konfliktstilar krockar och ge konkreta övningar för att hantera kritik och avstängning (stonewalling).
+5. Konkreta råd: Formulera exakt vad Subject A kan göra för att bjuda in Subject B utan att skapa låsningar, och hur Subject B kan kommunicera sitt behov av återhämtning tryggt.
+
+Analysen ska hålla en akademisk, terapeutisk och lösningsorienterad ton. Undvik plattityder.`;
+
+            previewEl.textContent = prompt;
+
+        } else if (activePromptType === 'a') {
+            if (!state.dataA) {
+                previewEl.textContent = `[Kräver data från ${state.nameA} för individuell analys]`;
+                return;
+            }
+
+            const prompt = `Du agerar som en personlig samtalsterapeut och coach. Här är psykometrisk data för en individ:
+
+Individ-data (JSON):
+${JSON.stringify({ name: state.nameA, scores: state.dataA.scores, identified_traits: state.dataA.identified_traits }, null, 2)}
+
+Uppgift:
+Skapa en djupt insiktsfull individprofil för ${state.nameA}. 
+1. Förklara hur kombinationen av personens anknytningsstil och HSP-drag (om tillämpligt) påverkar vardagen och nära relationer.
+2. Analysera hur personens stressrespons (t.ex. hyperaktivering) manifesterar sig kroppsligt och emotionellt vid konflikter.
+3. Identifiera blinda fläckar i personens konflikthanteringsstil (TKI) och Gottman-beteenden.
+4. Ge tre skräddarsydda, konkreta självregleringsövningar för att hantera överväldigande situationer.`;
+
+            previewEl.textContent = prompt;
+
+        } else if (activePromptType === 'b') {
+            if (!state.dataB) {
+                previewEl.textContent = `[Kräver data från ${state.nameB} för individuell analys]`;
+                return;
+            }
+
+            const prompt = `Du agerar som en personlig samtalsterapeut och coach. Här är psykometrisk data för en individ:
+
+Individ-data (JSON):
+${JSON.stringify({ name: state.nameB, scores: state.dataB.scores, identified_traits: state.dataB.identified_traits }, null, 2)}
+
+Uppgift:
+Skapa en djupt insiktsfull individprofil för ${state.nameB}. 
+1. Förklara hur kombinationen av personens anknytningsstil och HSP-drag (om tillämpligt) påverkar vardagen och nära relationer.
+2. Analysera hur personens stressrespons (t.ex. hyperaktivering) manifesterar sig kroppsligt och emotionellt vid konflikter.
+3. Identifiera blinda fläckar i personens konflikthanteringsstil (TKI) och Gottman-beteenden.
+4. Ge tre skräddarsydda, konkreta självregleringsövningar för att hantera överväldigande situationer.`;
+
+            previewEl.textContent = prompt;
+        }
+    }
+
+    function copyPrompt() {
+        const text = document.getElementById("prompt-preview").textContent;
+        navigator.clipboard.writeText(text).then(() => {
+            showCustomAlert(
+                "Prompt kopierad!", 
+                "Relationsdatan och instruktionerna har sparats i ditt urklipp. Öppna nu en AI-chatt (t.ex. Claude eller Gemini) och klistra in med Ctrl+V eller Cmd+V för att generera analysen."
+            );
+        });
+    }
+
+    // Custom Alert Modal Helpers
+    function showCustomAlert(title, message, isCode = false) {
+        document.getElementById("custom-alert-title").textContent = title;
+        const msgEl = document.getElementById("custom-alert-message");
+        
+        if (isCode) {
+            msgEl.innerHTML = `
+                <div class="custom-alert-code-box">
+                    <code id="custom-alert-code-text">${message}</code>
+                    <button class="btn btn-secondary btn-sm" onclick="copyAlertCode(this)" style="margin-top: 10px; width: auto;">Kopiera kod</button>
+                </div>
+            `;
+        } else {
+            msgEl.textContent = message;
+        }
+        
+        document.getElementById("custom-alert-modal").style.display = "flex";
+    }
+
+    function closeCustomAlert() {
+        document.getElementById("custom-alert-modal").style.display = "none";
+    }
+
+    function copyAlertCode(btn) {
+        const text = document.getElementById("custom-alert-code-text").textContent;
+        navigator.clipboard.writeText(text).then(() => {
+            const originalText = btn.textContent;
+            btn.textContent = "Kopierad!";
+            btn.style.backgroundColor = "var(--color-sync)";
+            btn.style.color = "white";
+            setTimeout(() => {
+                btn.textContent = originalText;
+                btn.style.backgroundColor = "";
+                btn.style.color = "";
+            }, 2000);
+        });
+    }
+</script>
+
+<!-- Custom Theme Modal Alert -->
+<div id="custom-alert-modal" class="modal-backdrop" style="display: none;">
+    <div class="custom-alert-card">
+        <h3 id="custom-alert-title">Meddelande</h3>
+        <p id="custom-alert-message">Meddelandetext</p>
+        <div class="custom-alert-actions">
+            <button class="btn btn-primary" onclick="closeCustomAlert()">Stäng</button>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
