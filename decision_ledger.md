@@ -88,4 +88,11 @@
   <motivering>Löste problemet där "Uppdatering tillgänglig!" visades upprepade gånger trots uppdatering, vilket berodde på att webbläsare cachar dashboard.html aggressivt och serverade den gamla filen även vid omladdningar. Genom att lägga till &v=Date.now() vid reload tvingas webbläsaren att bypassa cachen och hämta den senaste HTML-filen. Konsoliderade även RULE_GOTTMAN_CRITICISM_STONEWALLING och dess invers till ett enskilt kort ('Ömsesidig destruktiv eskalering') om båda parter uppvisar båda beteenden.</motivering>
 </record>
 
+<record id="DEC-016" kategori="Felsökning">
+  <beslut>Lösa versionskontrollens loop-fel genom att committa version.json, samt införa strikt datumjämförelse i JavaScript.</beslut>
+  <kärna>Driftsättning av version.json och striktare datumlogik</kärna>
+  <motivering>Upptäckte att version.json inte fanns med i git add i föregående commit och därför låg kvar i ett gammalt läge på servern, vilket orsakade en permanent mismatch mot den lokalt kompilerade källkoden. Lade även till en striktare datumjämförelse (new Date(remote) > new Date(local)) i JavaScript för att säkerställa att en äldre version på servern aldrig kan trigga falska uppdaterings-notiser i frontend.</motivering>
+</record>
+
+
 

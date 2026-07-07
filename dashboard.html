@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="build-timestamp" content="2026-07-07T09:38:32Z">
+    <meta name="build-timestamp" content="2026-07-07T09:42:51Z">
     <title>Psykometrisk Relationsanalysator — Calm Sanctuary</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
@@ -2536,7 +2536,7 @@ Skapa en djupt insiktsfull individprofil för ${state.nameB}.
             const localMeta = document.querySelector('meta[name="build-timestamp"]');
             const localBuildTime = localMeta ? localMeta.getAttribute('content') : null;
 
-            if (remoteBuildTime && remoteBuildTime !== localBuildTime) {
+            if (remoteBuildTime && localBuildTime && new Date(remoteBuildTime) > new Date(localBuildTime)) {
                 console.log(`Ny version tillgänglig! (Server: ${remoteBuildTime}, Lokal: ${localBuildTime})`);
                 state.updateAvailable = true;
 

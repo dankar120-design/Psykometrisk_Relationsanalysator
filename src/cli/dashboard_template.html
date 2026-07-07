@@ -2536,7 +2536,7 @@ Skapa en djupt insiktsfull individprofil för ${state.nameB}.
             const localMeta = document.querySelector('meta[name="build-timestamp"]');
             const localBuildTime = localMeta ? localMeta.getAttribute('content') : null;
 
-            if (remoteBuildTime && remoteBuildTime !== localBuildTime) {
+            if (remoteBuildTime && localBuildTime && new Date(remoteBuildTime) > new Date(localBuildTime)) {
                 console.log(`Ny version tillgänglig! (Server: ${remoteBuildTime}, Lokal: ${localBuildTime})`);
                 state.updateAvailable = true;
 
