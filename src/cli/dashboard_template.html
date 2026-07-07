@@ -1560,8 +1560,7 @@
         try {
             const calculated = calculateSubjectData(tempAnswers);
             const calculatedObj = {
-                scores: calculated.scores,
-                identified_traits: calculated.identified_traits,
+                ...calculated,
                 answers: tempAnswers
             };
 
@@ -1612,8 +1611,7 @@
             const calculated = calculateSubjectData(answers);
 
             const calculatedObj = {
-                scores: calculated.scores,
-                identified_traits: calculated.identified_traits,
+                ...calculated,
                 answers: answers
             };
 
