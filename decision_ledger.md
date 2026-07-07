@@ -70,5 +70,8 @@
   <motivering>Upptäckte att tillägget av SECURE_ATTACHMENT inte visades på befintliga importerade användarprofiler i webbläsaren på grund av att localStorage returnerade förberäknade statiska drag från den äldre klientsessionen. Genom att alltid räkna om allt på load säkerställs att ändringar i traits.json direkt reflekteras. Lade dessutom till 4 nya buffert-synergier för par där den ena är trygg och den andra är ångestfylld/undvikande.</motivering>
 </record>
 
-
-
+<record id="DEC-013" kategori="Utveckling">
+  <beslut>Refaktorisera relationssynergier för att vara fullständigt ömsesidigt beskrivande i traits.json.</beslut>
+  <kärna>Bilateralisering av synergi-beskrivningar</kärna>
+  <motivering>Justerade beskrivningarna för RULE_SECURE_BUFFER och RULE_HSP_SUPPORT_SECURE så att de inte bara beskriver hur en part drar fördel av den andre, utan tydligt lyfter fram den ömsesidiga dynamiken (t.ex. hur den tryggas stabilitet frigör den ångestfylldas lyhördhet till fördel för båda, och hur stresshantering skapar hemmaro för båda).</motivering>
+</record>
