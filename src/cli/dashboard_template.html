@@ -1221,6 +1221,67 @@
             .visualizer-card {
                 padding: 12px;
                 min-height: 400px;
+        }
+
+        /* Print & PDF optimization styles */
+        @media print {
+            /* Hide layout elements not suitable for a printed document */
+            .subject-actions,
+            .visualizer-card,
+            .ai-card,
+            .modal-overlay,
+            .modal-backdrop,
+            .prompt-actions,
+            #prompt-preview,
+            #update-notification,
+            .empty-findings {
+                display: none !important;
+            }
+
+            /* Force page dimensions and margin layout */
+            @page {
+                size: A4 portrait;
+                margin: 15mm;
+            }
+
+            /* Reset background and body padding */
+            body {
+                background: #ffffff !important;
+                color: #000000 !important;
+                padding: 0 !important;
+            }
+
+            /* Ensure backgrounds and borders render */
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            /* Bypassing WebKit page-break bug: Convert grid/flex to blocks with columns */
+            .dashboard-grid {
+                display: block !important;
+                column-count: 2 !important;
+                column-gap: 24px !important;
+                margin-bottom: 30px !important;
+            }
+
+            /* Page break optimization - MUST be block to work in Chrome */
+            .subject-card {
+                display: block !important;
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+                margin-bottom: 20px !important;
+            }
+
+            .findings-area {
+                display: block !important;
+            }
+
+            .finding-card {
+                display: block !important;
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+                margin-bottom: 16px !important;
             }
         }
     </style>
