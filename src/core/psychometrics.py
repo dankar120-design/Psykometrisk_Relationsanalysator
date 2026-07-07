@@ -162,21 +162,13 @@ def run_analysis(state_path, traits_path):
             elif rule["type"] == "attraction":
                 attraction_factors.append(rule["description"])
 
-    # 3. Beräkna logistisk synk-poäng (TKI & Samvetsgrannhet / HSP)
+    # 3. Beräkna logistisk synk-poäng
     sync_score = 1.0
     for conn in connections:
         if conn["edge_type"] == "collision":
             sync_score -= 0.2
-    
-    # Justera för TKI-specifika effekter dynamiskt från subjekts-data
-    d_tki = subjects["D"]["conflict_mechanisms"]["primary_tki"]["effective"]
-    e_tki = subjects["E"]["conflict_mechanisms"]["primary_tki"]["effective"]
-    if d_tki and e_tki:
-        if d_tki == "Collaborating" and e_tki == "Collaborating":
+        elif conn["edge_type"] == "attraction":
             sync_score += 0.1
-        elif d_tki == "Competing" and e_tki == "Competing":
-            sync_score -= 0.15
-            
     sync_score = max(0.0, min(1.0, sync_score))
     
     # 4. Spara slutsatserna i state

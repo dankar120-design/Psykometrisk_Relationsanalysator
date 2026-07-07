@@ -47,6 +47,16 @@
       "conditions": {
         "recovery_latency_hrs": { "min": 4.0 }
       }
+    },
+    {
+      "id": "SECURE_ATTACHMENT",
+      "module": "attachment",
+      "name": "Trygg anknytning",
+      "description": "Förmåga att lita på närhet, kommunicera behov och reglera känslor tryggt.",
+      "conditions": {
+        "anxiety_score": { "max": 0.4 },
+        "avoidance_score": { "max": 0.4 }
+      }
     }
   ],
   "interaction_rules": [
@@ -129,6 +139,66 @@
       "type": "collision",
       "severity": "medium",
       "description": "Konfliktundvikande stagnation: Båda parter drar sig undan konflikter vilket leder till att underliggande problem förblir olösta."
+    },
+    {
+      "id": "RULE_SECURE_ATTACHMENT_SYNERGY",
+      "conditions": [
+        { "subject": "D", "path": "identified_traits", "operator": "contains", "value": "SECURE_ATTACHMENT" },
+        { "subject": "E", "path": "identified_traits", "operator": "contains", "value": "SECURE_ATTACHMENT" }
+      ],
+      "type": "attraction",
+      "severity": "high",
+      "description": "Trygg anknytningssynergi: Båda parter har en stabil grundtrygghet vilket skapar en öppen, tillitsfull och resilient relation."
+    },
+    {
+      "id": "RULE_HSP_SUPPORT_SECURE",
+      "conditions": [
+        { "subject": "D", "path": "identified_traits", "operator": "contains", "value": "HSP_EOE" },
+        { "subject": "E", "path": "attachment_profile.stress_response.effective", "operator": "equal", "value": "secure" }
+      ],
+      "type": "attraction",
+      "severity": "high",
+      "description": "Resilient återhämtningsstöd: Davids behov av sensorisk återhämtning möts tryggt av Emmas stabila stressrespons utan att trigga separationsångest."
+    },
+    {
+      "id": "RULE_HSP_SUPPORT_SECURE_REV",
+      "conditions": [
+        { "subject": "E", "path": "identified_traits", "operator": "contains", "value": "HSP_EOE" },
+        { "subject": "D", "path": "attachment_profile.stress_response.effective", "operator": "equal", "value": "secure" }
+      ],
+      "type": "attraction",
+      "severity": "high",
+      "description": "Resilient återhämtningsstöd: Emmas behov av sensorisk återhämtning möts tryggt av Davids stabila stressrespons utan att trigga separationsångest."
+    },
+    {
+      "id": "RULE_TKI_COLLABORATION_SYNERGY",
+      "conditions": [
+        { "subject": "D", "path": "conflict_mechanisms.primary_tki.effective", "operator": "equal", "value": "Collaborating" },
+        { "subject": "E", "path": "conflict_mechanisms.primary_tki.effective", "operator": "equal", "value": "Collaborating" }
+      ],
+      "type": "attraction",
+      "severity": "high",
+      "description": "Samarbetssynergi: Båda parter möter meningsskiljaktigheter med vilja till samarbete och kompromiss, vilket gör det enkelt att hitta äkta win-win-lösningar."
+    },
+    {
+      "id": "RULE_TKI_CONSTRUCTIVE_MATCH",
+      "conditions": [
+        { "subject": "D", "path": "conflict_mechanisms.primary_tki.effective", "operator": "equal", "value": "Collaborating" },
+        { "subject": "E", "path": "conflict_mechanisms.primary_tki.effective", "operator": "equal", "value": "Compromising" }
+      ],
+      "type": "attraction",
+      "severity": "medium",
+      "description": "Konstruktiv konfliktmatch: David strävar efter samarbete och Emma söker kompromisser, vilket leder till effektiva och balanserade överenskommelser."
+    },
+    {
+      "id": "RULE_TKI_CONSTRUCTIVE_MATCH_REV",
+      "conditions": [
+        { "subject": "E", "path": "conflict_mechanisms.primary_tki.effective", "operator": "equal", "value": "Collaborating" },
+        { "subject": "D", "path": "conflict_mechanisms.primary_tki.effective", "operator": "equal", "value": "Compromising" }
+      ],
+      "type": "attraction",
+      "severity": "medium",
+      "description": "Konstruktiv konfliktmatch: Emma strävar efter samarbete och David söker kompromisser, vilket leder till effektiva och balanserade överenskommelser."
     }
   ]
 }

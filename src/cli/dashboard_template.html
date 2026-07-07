@@ -1885,18 +1885,10 @@
         connections.forEach(conn => {
             if (conn.edge_type === 'collision') {
                 syncScore -= 0.2;
+            } else if (conn.edge_type === 'attraction') {
+                syncScore += 0.1;
             }
         });
-        
-        const dTki = subA.scores.primary_tki;
-        const eTki = subB.scores.primary_tki;
-        if (dTki && eTki) {
-            if (dTki === "Collaborating" && eTki === "Collaborating") {
-                syncScore += 0.1;
-            } else if (dTki === "Competing" && eTki === "Competing") {
-                syncScore -= 0.15;
-            }
-        }
         
         syncScore = Math.max(0.0, Math.min(1.0, syncScore));
         
@@ -2060,6 +2052,7 @@
         // Draw node elements
         const SwedishLabel = (nodeId) => {
             switch(nodeId) {
+                case "SECURE_ATTACHMENT": return "Trygg Anknytning";
                 case "ANXIOUS_PREOCCUPIED": return "Ångestfylld Anknytning";
                 case "DISMISSIVE_AVOIDANT": return "Avfärdande Undvikande";
                 case "FEARFUL_AVOIDANT": return "Räddhågsen Undvikande";
@@ -2152,7 +2145,7 @@
                 if (conn.edge_type === 'collision') {
                     path.setAttribute("class", "connection-line collision");
                     path.setAttribute("stroke", "var(--color-collision)");
-                } else {
+                } else if (conn.edge_type === 'attraction') {
                     path.setAttribute("class", "connection-line sync");
                     path.setAttribute("stroke", "var(--color-sync)");
                 }
