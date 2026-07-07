@@ -167,8 +167,6 @@ def run_analysis(state_path, traits_path):
     for conn in connections:
         if conn["edge_type"] == "collision":
             sync_score -= 0.2
-        elif conn["edge_type"] == "attraction":
-            sync_score += 0.1
     sync_score = max(0.0, min(1.0, sync_score))
     
     # 4. Spara slutsatserna i state

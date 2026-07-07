@@ -1,7 +1,7 @@
 <record id="DEC-001" kategori="Arkitektur">
   <beslut>Etablera en strikt modulär katalogstruktur med dokumentation (docs/), statiska datafiler (data/), källkod (src/) och tester (tests/), samt ett override-skyddat JSON-schema i relation_state.json.</beslut>
   <kärna>Arkitekturstruktur och override-hantering</kärna>
-  <motivering>Den modulära strukturen säkerställer god kodkvalitet och separation av ansvar. Separation av computed och override-värden garanterar at manuella justeringar från djupintervjuer inte skrivs över av beräkningsmotorn vid framtida tester eller omladdningar.</motivering>
+  <motivering>Den modulära strukturen säkerställer god kodkvalitet och separation av ansvar. Separation av computed och override-värden garanterar att manuella justeringar från djupintervjuer inte skrivs över av beräkningsmotorn vid framtida tester eller omladdningar.</motivering>
 </record>
 
 <record id="DEC-002" kategori="Utveckling">
@@ -38,4 +38,16 @@
   <beslut>Implementera custom-modaler (custom-alert-modal) i salvia/sand-temat för att ersätta webbläsarens inbyggda alert-popuper. Anpassa dessutom importbox-höjderna till exakt 40px samt lägg till responsivitet för relationskartan på skärmar under 600px.</beslut>
   <kärna>Temabundna modalpopuper, höjdjusteringar och mobilanpassad visualisering</kärna>
   <motivering>Browser-alerts bryter mot spa-temats premiumkänsla och blockerar trådar. Genom att bygga egna CSS-modaler säkras en enhetlig grafisk profil. Mobiljusteringar på nodes-col (42% bredd och 0.65rem font) förhindrar overflow på mindre skärmar.</motivering>
+</record>
+
+<record id="DEC-008" kategori="Planering">
+  <beslut>Lägga till draget SECURE_ATTACHMENT och 6 st attraktionsregler i traits.json, samt uppdatera beräkningslogiken (+10% poäng per synergi, max 100%) i både Python och JS.</beslut>
+  <kärna>Planering av relationssynergier och poängjusteringar</kärna>
+  <motivering>Möjliggör en mer balanserad relationskartläggning där par inte bara ser sina krockar i rött, utan även sina gemensamma styrkor och synergier i grönt. Synk-poängen kan justeras uppåt av synergier upp till max 100%.</motivering>
+</record>
+
+<record id="DEC-009" kategori="Implementation">
+  <beslut>Implementerade synergier via traits.json och tog bort hårdkodad TKI-logik</beslut>
+  <kärna>Single Source of Truth för interaktioner</kärna>
+  <motivering>Enligt granskningen (FAS 2) och planeringen (FAS 6) lades SECURE_ATTACHMENT och 6 nya positiva synergier in i traits.json. Den äldre hårdkodade koden i psychometrics.py och dashboard_template.html för Collaborating/Competing plockades bort för att undvika dubbelräkning och bibehålla datadriven arkitektur (DEC-003). SVG-rendering i dashboard gjordes explicit (else if) och SwedishLabel uppdaterades. Under efterföljande audit ändrades matematiken så att synergier är kvalitativa och inte maskerar krockar i sync_score.</motivering>
 </record>

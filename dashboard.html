@@ -1885,8 +1885,6 @@
         connections.forEach(conn => {
             if (conn.edge_type === 'collision') {
                 syncScore -= 0.2;
-            } else if (conn.edge_type === 'attraction') {
-                syncScore += 0.1;
             }
         });
         
