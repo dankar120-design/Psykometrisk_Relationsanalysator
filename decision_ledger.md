@@ -119,3 +119,14 @@
 </record>
 
 
+<record id="DEC-021" kategori="Utveckling">
+  <beslut>Implementera dynamisk tab-namngivning för prompt-generatorns knappar baserat på användarinmatning, integrera en klinisk hybrid-tipsruta för kontextförfining, samt lägga till exakta och stoppsäkra följdfrågor i de genererade prompterna.</beslut>
+  <kärna>Dynamisk prompt-UX och interaktiva AI-följdfrågor</kärna>
+  <motivering>Löser problemet med tråkiga standardnamn på promptknapparna genom att styra textContent i updateNames(). Tipsrutan kombinerar nu instruktioner om AI-frågor med förslag på hur användaren kan addera egen kontext (särbo, livsfas). Promptarna har utrustats med strikta stopp-regler ("exakt 3 följdfrågor under separat rubrik", "Skriv ingenting efter frågorna") för att garantera att AI:n väntar på svar utan att hallucinera.</motivering>
+</record>
+
+<record id="DEC-022" kategori="UI/Layout">
+  <beslut>Implementera utskriftsstilar (@media print) anpassade för A4-porträtt och PDF-export, samt tillämpa display: block-bypass för WebKit-motorns fragmentationsbugg på grid- och flexkort.</beslut>
+  <kärna>Utskriftsstilar, döljning av gränssnittsbrus och Chromium page-break-bypass</kärna>
+  <motivering>Löser problemet med att utskrifter/PDF:er ser trasiga ut genom att dölja interaktivt brus (AI-kort, modal, knappar, status-badges) och placera profilkort A och B sida vid sida i två rena kolumner. Genom att dölja .visualizer-card slipper vi dessutom trasiga koordinatlinjer från SVG. För att kringgå Chrome/Edges fragmentationsbugg (där break-inside: avoid ignoreras i flex/grid) konverteras layouten till display: block inuti column-count: 2 vid utskrift.</motivering>
+</record>
