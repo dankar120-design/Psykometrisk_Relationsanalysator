@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="build-timestamp" content="2026-07-07T10:42:18Z">
+    <meta name="build-timestamp" content="2026-07-07T11:12:30Z">
     <title>Relia — Calm Sanctuary</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
@@ -676,12 +676,41 @@
             font-size: 0.9rem;
             cursor: pointer;
             transition: var(--transition);
+            max-width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
         .prompt-btn.active {
             background-color: var(--accent-sage-dark);
             color: white;
             border-color: var(--accent-sage-dark);
+        }
+
+        .prompt-tip-box {
+            margin-top: 16px;
+            padding: 16px;
+            background-color: var(--accent-sage-light);
+            border-left: 4px solid var(--accent-sage);
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+
+        .prompt-tip-box h5 {
+            margin: 0 0 6px 0;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--accent-sage-dark);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .prompt-tip-box p {
+            margin: 0;
+            color: var(--text-muted);
+            line-height: 1.45;
         }
 
         .prompt-preview-box {
@@ -1451,9 +1480,9 @@
         <p class="subtitle">Skapa strukturerade JSON-datapaket och prompts för kopiering till Claude eller Gemini</p>
         
         <div class="prompt-selector">
-            <button class="prompt-btn active" id="btn-prompt-joint" onclick="selectPromptType('joint')">Gemensam Relationsanalys (A + B)</button>
-            <button class="prompt-btn" id="btn-prompt-a" onclick="selectPromptType('a')">Individuell Analys för Subjekt A</button>
-            <button class="prompt-btn" id="btn-prompt-b" onclick="selectPromptType('b')">Individuell Analys för Subjekt B</button>
+            <button class="prompt-btn active" id="btn-prompt-joint" onclick="selectPromptType('joint')">Gemensam (David + Emma)</button>
+            <button class="prompt-btn" id="btn-prompt-a" onclick="selectPromptType('a')">Individuell: David</button>
+            <button class="prompt-btn" id="btn-prompt-b" onclick="selectPromptType('b')">Individuell: Emma</button>
         </div>
 
         <div class="prompt-instruction-card">
@@ -1482,6 +1511,12 @@
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-top: 1px;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
                     Öppna ChatGPT
                 </a>
+            </div>
+            
+            <div class="prompt-tip-box">
+                <h5>💡 Tips: Förfina din analys</h5>
+                <p style="margin-bottom: 8px;">AI:n avslutar sin analys med tre fördjupningsfrågor baserade på era testresultat. Svara på dem i chatten för att få skräddarsydda råd.</p>
+                <p>Du kan också direkt komplettera med er livssituation (t.ex. boendeform, livsfas eller specifika konfliktmönster).</p>
             </div>
         </div>
 
@@ -1643,6 +1678,11 @@
         // Update titles
         document.querySelectorAll(".subj-name-title-a").forEach(el => el.textContent = state.nameA);
         document.querySelectorAll(".subj-name-title-b").forEach(el => el.textContent = state.nameB);
+
+        // Update prompt buttons dynamically
+        document.getElementById("btn-prompt-joint").textContent = `Gemensam (${state.nameA} + ${state.nameB})`;
+        document.getElementById("btn-prompt-a").textContent = `Individuell: ${state.nameA}`;
+        document.getElementById("btn-prompt-b").textContent = `Individuell: ${state.nameB}`;
 
         saveToLocalStorage();
         generatePromptText();
@@ -2526,7 +2566,9 @@ Genomför en djupgående, finkänslig men knivskarp relationsanalys. Fokusera s�
 4. TKI & Gottman: Identifiera hur deras konfliktstilar krockar och ge konkreta övningar för att hantera kritik och avstängning (stonewalling).
 5. Konkreta råd: Ge varje person skräddarsydda, konkreta verktyg baserade på just deras profil. Hur kan var och en bjuda in den andre tryggt utan att trigga låsningar, och hur kan de kommunicera sina behov av närhet respektive utrymme på ett sätt som den andres nervsystem kan ta emot?
 
-Analysen ska hålla en akademisk, terapeutisk och lösningsorienterad ton. Undvik plattityder.`;
+Analysen ska hålla en akademisk, terapeutisk och lösningsorienterad ton. Undvik plattityder.
+
+Avsluta med en separat rubrik "Fördjupningsfrågor" där du ställer exakt 3 öppna, kliniskt motiverade följdfrågor. Frågorna ska vara direkt förankrade i parets specifika data — inte generiska. Syftet är att paret ska kunna berätta mer om sin livssituation (boendeform, livsfas, vardagsmönster) så att du kan förfina analysen i nästa svar. Skriv ingenting efter frågorna.`;
 
             previewEl.textContent = prompt;
 
@@ -2551,7 +2593,8 @@ Skapa en djupt insiktsfull individprofil för ${state.nameA}.
 1. Förklara hur kombinationen av personens anknytningsstil och HSP-drag (om tillämpligt) påverkar vardagen och nära relationer.
 2. Analysera hur personens stressrespons (t.ex. hyperaktivering) manifesterar sig kroppsligt och emotionellt vid konflikter.
 3. Identifiera blinda fläckar i personens konflikthanteringsstil (TKI) och Gottman-beteenden.
-4. Ge tre skräddarsydda, konkreta självregleringsövningar för att hantera överväldigande situationer.`;
+4. Ge tre skräddarsydda, konkreta självregleringsövningar för att hantera överväldigande situationer.
+5. Avsluta med en separat rubrik "Fördjupningsfrågor" där du ställer exakt 3 reflekterande följdfrågor förankrade i personens specifika data. Syftet är att individen ska kunna berätta mer om sin vardag och sina relationer så att du kan fördjupa coachningen i nästa svar. Skriv ingenting efter frågorna.`;
 
             previewEl.textContent = prompt;
 
@@ -2576,7 +2619,8 @@ Skapa en djupt insiktsfull individprofil för ${state.nameB}.
 1. Förklara hur kombinationen av personens anknytningsstil och HSP-drag (om tillämpligt) påverkar vardagen och nära relationer.
 2. Analysera hur personens stressrespons (t.ex. hyperaktivering) manifesterar sig kroppsligt och emotionellt vid konflikter.
 3. Identifiera blinda fläckar i personens konflikthanteringsstil (TKI) och Gottman-beteenden.
-4. Ge tre skräddarsydda, konkreta självregleringsövningar för att hantera överväldigande situationer.`;
+4. Ge tre skräddarsydda, konkreta självregleringsövningar för att hantera överväldigande situationer.
+5. Avsluta med en separat rubrik "Fördjupningsfrågor" där du ställer exakt 3 reflekterande följdfrågor förankrade i personens specifika data. Syftet är att individen ska kunna berätta mer om sin vardag och sina relationer så att du kan fördjupa coachningen i nästa svar. Skriv ingenting efter frågorna.`;
 
             previewEl.textContent = prompt;
         }
