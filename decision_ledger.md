@@ -82,3 +82,10 @@
   <motivering>Uppmärksammade att de nya synergitexterna inte ersatte namnen (Emmas/Davids visades fortfarande) eftersom JavaScript-ersättaren letar efter standardiserade D- och E-placeholders och \b-gränser inte matchar när s-ändelsen ligger direkt emot placeholder-namnet. Återställde därför beskrivningarna till D:s och E:s. Förbättrade dessutom formatRuleText till att generera korrekt svensk possessiv (genitiv utan kolon, t.ex. Daniels/Elises istället för Daniel:s/Elise:s). Lade även till logik i renderDetailedFindings för att slå ihop dubbla (inversa) HSP-återhämtningskrockar till en enda sammanslagen mönsterkrock-kort för ökad överskådlighet.</motivering>
 </record>
 
+<record id="DEC-015" kategori="Felsökning">
+  <beslut>Konsolidera ömsesidig kritik/stonewalling krock (Gottman), samt lägga till tid-baserad cache-buster vid versionsuppdateringar.</beslut>
+  <kärna>Gottman-krockskonsolidering och cache-buster vid uppdatering</kärna>
+  <motivering>Löste problemet där "Uppdatering tillgänglig!" visades upprepade gånger trots uppdatering, vilket berodde på att webbläsare cachar dashboard.html aggressivt och serverade den gamla filen även vid omladdningar. Genom att lägga till &v=Date.now() vid reload tvingas webbläsaren att bypassa cachen och hämta den senaste HTML-filen. Konsoliderade även RULE_GOTTMAN_CRITICISM_STONEWALLING och dess invers till ett enskilt kort ('Ömsesidig destruktiv eskalering') om båda parter uppvisar båda beteenden.</motivering>
+</record>
+
+

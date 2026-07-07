@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="build-timestamp" content="2026-07-07T09:36:20Z">
+    <meta name="build-timestamp" content="2026-07-07T09:38:32Z">
     <title>Psykometrisk Relationsanalysator — Calm Sanctuary</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
@@ -2294,6 +2294,11 @@
         const hasHspCollB = analysis.connections.some(c => c.evidence === "RULE_HSP_RECOVERY_COLLISION_REV");
         const mergeHspColl = hasHspCollA && hasHspCollB;
 
+        // Check if both Gottman criticism/stonewalling warnings are active
+        const hasGottmanA = analysis.connections.some(c => c.evidence === "RULE_GOTTMAN_CRITICISM_STONEWALLING");
+        const hasGottmanB = analysis.connections.some(c => c.evidence === "RULE_GOTTMAN_CRITICISM_STONEWALLING_REV");
+        const mergeGottman = hasGottmanA && hasGottmanB;
+
         // Group collisions
         const processedCollisions = [];
         analysis.connections.forEach(conn => {
@@ -2308,6 +2313,19 @@
                     return;
                 }
                 if (conn.evidence === "RULE_HSP_RECOVERY_COLLISION_REV") {
+                    return; // Skip second one since it's merged
+                }
+            }
+
+            if (mergeGottman) {
+                if (conn.evidence === "RULE_GOTTMAN_CRITICISM_STONEWALLING") {
+                    processedCollisions.push({
+                        evidence: "RULE_GOTTMAN_MUTUAL_CRITICISM_STONEWALLING",
+                        description: "Ömsesidig destruktiv eskalering: Båda parter använder kritik och stänger av (Stonewalling) i konflikter. Det skapar en destruktiv spiral där bådas reaktioner växelvis triggar anfall och emotionell avstängning hos den andre."
+                    });
+                    return;
+                }
+                if (conn.evidence === "RULE_GOTTMAN_CRITICISM_STONEWALLING_REV") {
                     return; // Skip second one since it's merged
                 }
             }
@@ -2582,7 +2600,7 @@ Skapa en djupt insiktsfull individprofil för ${state.nameB}.
             updateBtn.className = 'btn btn-primary';
             updateBtn.textContent = 'Uppdatera & Ladda om';
             updateBtn.onclick = () => {
-                window.location.href = window.location.pathname + '?updated=1';
+                window.location.href = window.location.pathname + '?updated=1&v=' + Date.now();
             };
 
             const cancelBtn = document.createElement('button');
