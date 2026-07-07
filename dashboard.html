@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="build-timestamp" content="2026-07-07T09:15:36Z">
+    <meta name="build-timestamp" content="2026-07-07T09:19:42Z">
     <title>Psykometrisk Relationsanalysator — Calm Sanctuary</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
@@ -2477,25 +2477,17 @@ Skapa en djupt insiktsfull individprofil för ${state.nameB}.
         }
 
         try {
-            const resp = await fetch(window.location.href + '?cb=' + Date.now(), { cache: 'no-store' });
+            const resp = await fetch('version.json?cb=' + Date.now(), { cache: 'no-store' });
             if (!resp.ok) return;
-            const text = await resp.text();
+            const data = await resp.json();
             
-            // Extract remote build timestamp
-            const timeMatch = text.match(/name="build-timestamp" content="([^"]+)"/);
-            const remoteBuildTime = timeMatch ? timeMatch[1] : null;
-
-            // Extract remote changelog
-            const changelogMatch = text.match(/const CHANGELOG_DB = (\[.*?\]);/);
-            const remoteChangelog = changelogMatch ? JSON.parse(changelogMatch[1]) : null;
-
+            const remoteBuildTime = data.build_timestamp;
             const localMeta = document.querySelector('meta[name="build-timestamp"]');
             const localBuildTime = localMeta ? localMeta.getAttribute('content') : null;
 
-            if (remoteBuildTime && remoteBuildTime !== localBuildTime && remoteChangelog) {
+            if (remoteBuildTime && remoteBuildTime !== localBuildTime) {
                 console.log(`Ny version tillgänglig! (Server: ${remoteBuildTime}, Lokal: ${localBuildTime})`);
                 state.updateAvailable = true;
-                state.serverChangelog = remoteChangelog;
 
                 const btn = document.getElementById('changelog-btn');
                 if (btn) {
@@ -2533,14 +2525,25 @@ Skapa en djupt insiktsfull individprofil för ${state.nameB}.
             closeBtn.onclick = closeChangelogModal;
             actionsEl.appendChild(closeBtn);
         } 
-        else if (state.updateAvailable && state.serverChangelog) {
+        else if (state.updateAvailable) {
             titleEl.textContent = "Ny uppdatering tillgänglig! 🚀";
 
-            // Filter out entries that are newer than local build
-            const currentVersions = new Set(CHANGELOG_DB.map(e => e.version));
-            const newEntries = state.serverChangelog.filter(e => !currentVersions.has(e.version));
-            
-            renderChangelogList(contentEl, newEntries.length ? newEntries : state.serverChangelog);
+            const infoText = document.createElement('p');
+            infoText.style.fontSize = '0.9rem';
+            infoText.style.color = 'var(--text-main)';
+            infoText.style.lineHeight = '1.5';
+            infoText.style.margin = '0 0 16px 0';
+            infoText.textContent = "En ny uppdatering finns tillgänglig med förbättringar och relationsanalyser. Klicka på knappen nedan för att ladda om applikationen och aktivera den senaste versionen.";
+            contentEl.appendChild(infoText);
+
+            const changelogLabel = document.createElement('h4');
+            changelogLabel.style.margin = '0 0 8px 0';
+            changelogLabel.style.fontSize = '0.95rem';
+            changelogLabel.style.color = 'var(--accent-sage-dark)';
+            changelogLabel.textContent = "Aktuell historik:";
+            contentEl.appendChild(changelogLabel);
+
+            renderChangelogList(contentEl, CHANGELOG_DB);
 
             const updateBtn = document.createElement('button');
             updateBtn.className = 'btn btn-primary';

@@ -58,3 +58,10 @@
   <motivering>Genom att checka window.location.protocol och stoppa fetch vid file:// undviks röda felmeddelanden i konsolen vid lokal körning. Tidsstämpel och changelog-data hämtas och parsar live från en bakgrundsfetch mot servern, vilket säkerställer att användare på GitHub Pages direkt och sömlöst notifieras om nya uppdateringar.</motivering>
 </record>
 
+<record id="DEC-011" kategori="Refaktorisering">
+  <beslut>Refaktorisera auto-uppdateraren så att versionskontroll sker mot en statisk version.json i stället för regex-parsning av hela dashboard.html.</beslut>
+  <kärna>JSON-baserad versionskontroll och säkrad parsning</kärna>
+  <motivering>Erkänt som en kritisk sårbarhet under fientlig granskning (FAS 8 / Audit) eftersom regex-parsningen skulle krascha vid förekomster av markerings- eller arraysymboler (såsom '];') i ändringsloggens fritext. Genom att dumpa en minimalistisk version.json vid byggtillfället och parsa den med JSON.parse() görs nätverkstransaktionen säker, XSS-skyddad och extremt bandbreddseffektiv.</motivering>
+</record>
+
+

@@ -73,6 +73,11 @@ def build():
     with open(output_path, 'w', encoding='utf-8') as f:
         f.write(compiled_content)
 
+    # Save version info to version.json for auto-update checks
+    version_path = os.path.join(base_dir, 'version.json')
+    with open(version_path, 'w', encoding='utf-8') as f:
+        json.dump({"build_timestamp": build_timestamp}, f, ensure_ascii=False)
+
     print(f"Successfully generated standalone dashboard: {output_path} (Fingerprint: {fingerprint}, Built: {build_timestamp})")
 
 if __name__ == '__main__':
