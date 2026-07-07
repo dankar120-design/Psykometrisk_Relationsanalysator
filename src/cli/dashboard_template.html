@@ -2260,13 +2260,22 @@
         });
     }
 
+    function getSwedishPossessive(name) {
+        if (!name) return "";
+        if (name.endsWith('s') || name.endsWith('x') || name.endsWith('z') ||
+            name.endsWith('S') || name.endsWith('X') || name.endsWith('Z')) {
+            return name;
+        }
+        return name + "s";
+    }
+
     function formatRuleText(text) {
         if (!text) return "";
         return text
             .replace(/Subjekt D/g, state.nameA)
             .replace(/Subjekt E/g, state.nameB)
-            .replace(/\bD:s/g, `${state.nameA}:s`)
-            .replace(/\bE:s/g, `${state.nameB}:s`)
+            .replace(/\bD:s/g, getSwedishPossessive(state.nameA))
+            .replace(/\bE:s/g, getSwedishPossessive(state.nameB))
             .replace(/\bD\b/g, state.nameA)
             .replace(/\bE\b/g, state.nameB);
     }
@@ -2275,18 +2284,45 @@
         const container = document.getElementById("findings-container");
         container.innerHTML = "";
 
-        if (analysis.critical_warnings.length === 0 && analysis.attraction_factors.length === 0) {
+        if (analysis.connections.length === 0) {
             container.innerHTML = `<div class="empty-findings">Inga krockar eller synergier upptäckta för nuvarande profilkombination.</div>`;
             return;
         }
 
-        // Add collisions
-        analysis.critical_warnings.forEach(warn => {
+        // Check if both HSP recovery collisions are active
+        const hasHspCollA = analysis.connections.some(c => c.evidence === "RULE_HSP_RECOVERY_COLLISION");
+        const hasHspCollB = analysis.connections.some(c => c.evidence === "RULE_HSP_RECOVERY_COLLISION_REV");
+        const mergeHspColl = hasHspCollA && hasHspCollB;
+
+        // Group collisions
+        const processedCollisions = [];
+        analysis.connections.forEach(conn => {
+            if (conn.edge_type !== 'collision') return;
+
+            if (mergeHspColl) {
+                if (conn.evidence === "RULE_HSP_RECOVERY_COLLISION") {
+                    processedCollisions.push({
+                        evidence: "RULE_HSP_RECOVERY_COLLISION_MUTUAL",
+                        description: "Ömsesidig sensorisk återhämtningskrock: Båda parter har ett stort behov av ensamtid för återhämtning (HSP), men reagerar samtidigt med hyperaktivering vid stress. Det innebär att båda parters behov av utrymme krockar med den andres behov av omedelbar kontakt."
+                    });
+                    return;
+                }
+                if (conn.evidence === "RULE_HSP_RECOVERY_COLLISION_REV") {
+                    return; // Skip second one since it's merged
+                }
+            }
+
+            processedCollisions.push({
+                evidence: conn.evidence,
+                description: conn.description
+            });
+        });
+
+        // Add collisions to DOM
+        processedCollisions.forEach(item => {
             const card = document.createElement("div");
             card.className = "finding-card collision";
-            
-            const friendlyText = formatRuleText(warn);
-
+            const friendlyText = formatRuleText(item.description);
             card.innerHTML = `
                 <div class="finding-icon">⚠️</div>
                 <div class="finding-content">
@@ -2297,13 +2333,12 @@
             container.appendChild(card);
         });
 
-        // Add attractions/sync
-        analysis.attraction_factors.forEach(attr => {
+        // Add attractions/sync to DOM
+        analysis.connections.forEach(conn => {
+            if (conn.edge_type !== 'attraction') return;
             const card = document.createElement("div");
             card.className = "finding-card sync";
-            
-            const friendlyText = formatRuleText(attr);
-
+            const friendlyText = formatRuleText(conn.description);
             card.innerHTML = `
                 <div class="finding-icon">💚</div>
                 <div class="finding-content">

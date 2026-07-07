@@ -71,7 +71,14 @@
 </record>
 
 <record id="DEC-013" kategori="Utveckling">
-  <beslut>Refaktorisera relationssynergier för att vara fullständigt ömsesidigt beskrivande i traits.json.</beslut>
+  <beslut>Refaktorisera relationssynergier för att vara studentligt ömsesidigt beskrivande i traits.json.</beslut>
   <kärna>Bilateralisering av synergi-beskrivningar</kärna>
   <motivering>Justerade beskrivningarna för RULE_SECURE_BUFFER och RULE_HSP_SUPPORT_SECURE så att de inte bara beskriver hur en part drar fördel av den andre, utan tydligt lyfter fram den ömsesidiga dynamiken (t.ex. hur den tryggas stabilitet frigör den ångestfylldas lyhördhet till fördel för båda, och hur stresshantering skapar hemmaro för båda).</motivering>
 </record>
+
+<record id="DEC-014" kategori="Felsökning">
+  <beslut>Åtgärda namnersättnings-bugg för possessiva namn (s-ändelser) i JS, återställa traits.json-beskrivningar till D/E, samt implementera sammanslagning (konsolidering) av dubbla HSP-krockar.</beslut>
+  <kärna>Possessiv grammatikjustering och sammanslagna mönsterkrockar</kärna>
+  <motivering>Uppmärksammade att de nya synergitexterna inte ersatte namnen (Emmas/Davids visades fortfarande) eftersom JavaScript-ersättaren letar efter standardiserade D- och E-placeholders och \b-gränser inte matchar när s-ändelsen ligger direkt emot placeholder-namnet. Återställde därför beskrivningarna till D:s och E:s. Förbättrade dessutom formatRuleText till att generera korrekt svensk possessiv (genitiv utan kolon, t.ex. Daniels/Elises istället för Daniel:s/Elise:s). Lade även till logik i renderDetailedFindings för att slå ihop dubbla (inversa) HSP-återhämtningskrockar till en enda sammanslagen mönsterkrock-kort för ökad överskådlighet.</motivering>
+</record>
+
