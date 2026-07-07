@@ -188,7 +188,7 @@
       ],
       "type": "attraction",
       "severity": "medium",
-      "description": "Konstruktiv konfliktmatch: David strävar efter samarbete och Emma söker kompromisser, vilket leder till effektiva och balanserade överenskommelser."
+      "description": "Konstruktiv konfliktmatch: D strävar efter samarbete och E söker kompromisser, vilket leder till effektiva och balanserade överenskommelser."
     },
     {
       "id": "RULE_TKI_CONSTRUCTIVE_MATCH_REV",
@@ -198,7 +198,7 @@
       ],
       "type": "attraction",
       "severity": "medium",
-      "description": "Konstruktiv konfliktmatch: Emma strävar efter samarbete och David söker kompromisser, vilket leder till effektiva och balanserade överenskommelser."
+      "description": "Konstruktiv konfliktmatch: E strävar efter samarbete och D söker kompromisser, vilket leder till effektiva och balanserade överenskommelser."
     },
     {
       "id": "RULE_SECURE_BUFFER_D_ANXIOUS",

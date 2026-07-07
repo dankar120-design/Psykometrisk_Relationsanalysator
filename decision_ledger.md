@@ -91,8 +91,11 @@
 <record id="DEC-016" kategori="Felsökning">
   <beslut>Lösa versionskontrollens loop-fel genom att committa version.json, samt införa strikt datumjämförelse i JavaScript.</beslut>
   <kärna>Driftsättning av version.json och striktare datumlogik</kärna>
-  <motivering>Upptäckte att version.json inte fanns med i git add i föregående commit och därför låg kvar i ett gammalt läge på servern, vilket orsakade en permanent mismatch mot den lokalt kompilerade källkoden. Lade även till en striktare datumjämförelse (new Date(remote) > new Date(local)) i JavaScript för att säkerställa att en äldre version på servern aldrig kan trigga falska uppdaterings-notiser i frontend.</motivering>
+  <motivering>Upptäckte att version.json inte fanns med i git add i föregående commit och därför låg kvar i ett gammalt läge på servern, vilket orsakade en mismatch mot den lokalt kompilerade källkoden. Lade även till en striktare datumjämförelse (new Date(remote) > new Date(local)) i JavaScript för att säkerställa att en äldre version på servern aldrig kan trigga falska uppdaterings-notiser i frontend.</motivering>
 </record>
 
-
-
+<record id="DEC-017" kategori="Utveckling">
+  <beslut>Avveckla oanvända CLI-filer, korrigera namn-placeholders i traits.json, samt implementera tema-baserad poängberäkning och status-badges i dashboarden.</beslut>
+  <kärna>CLI-avveckling, tema-baserade krockavdrag och relationsstatus</kärna>
+  <motivering>Genom att radera src/cli/analysator.py, src/core/psychometrics.py och tests/test_psychometrics.py rensas oanvänd kod. Korrigering av RULE_TKI_CONSTRUCTIVE_MATCH i traits.json till D/E placeholders möjliggör dynamisk namnsubstitution. Att gruppera krockar per övergripande tema (t.ex. HSP-återhämtning, Gottman-eskalering) förhindrar dubbelräkning av komplementära krockar, vilket vetenskapligt motverkar onödigt låga betyg. Status-badges ger konstruktiv och icke-dömande guidning för par.</motivering>
+</record>

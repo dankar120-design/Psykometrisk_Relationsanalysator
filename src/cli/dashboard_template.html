@@ -145,7 +145,37 @@
         .sync-info p {
             font-size: 0.85rem;
             color: var(--text-muted);
-            max-width: 200px;
+            max-width: 280px;
+        }
+
+        .sync-status-badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 20px;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .sync-status-badge.status-harmonisk {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            border: 1px solid rgba(46, 125, 50, 0.2);
+        }
+
+        .sync-status-badge.status-aktiv {
+            background-color: #fff8e1;
+            color: #f57f17;
+            border: 1px solid rgba(245, 127, 23, 0.2);
+        }
+
+        .sync-status-badge.status-kravande {
+            background-color: #ffebee;
+            color: #c62828;
+            border: 1px solid rgba(198, 40, 40, 0.2);
         }
 
         /* Subjects Config Area */
@@ -1165,7 +1195,10 @@
             </div>
             <div class="sync-info">
                 <h3>Logistisk Synkronisering</h3>
-                <p>Mått på synk vs. kollisionsmönster i relationen</p>
+                <div>
+                    <span id="sync-status-badge" class="sync-status-badge">Laddar...</span>
+                </div>
+                <p id="sync-status-desc">Beräknar relationell dynamik...</p>
             </div>
         </div>
     </header>
@@ -1988,14 +2021,19 @@
             }
         });
         
-        let syncScore = 1.0;
+        const activeCollisionThemes = new Set();
         connections.forEach(conn => {
             if (conn.edge_type === 'collision') {
-                syncScore -= 0.2;
+                let theme = conn.evidence;
+                if (theme.endsWith('_REV')) {
+                    theme = theme.substring(0, theme.length - 4);
+                }
+                activeCollisionThemes.add(theme);
             }
         });
         
-        syncScore = Math.max(0.0, Math.min(1.0, syncScore));
+        let syncScore = 1.0 - (activeCollisionThemes.size * 0.2);
+        syncScore = Math.max(0.2, Math.min(1.0, syncScore));
         
         return {
             connections,
@@ -2024,12 +2062,42 @@
                 circle.style.strokeDashoffset = offset;
                 valEl.textContent = `${pct}%`;
 
+                // Update Sync Status Category
+                const badgeEl = document.getElementById("sync-status-badge");
+                const descEl = document.getElementById("sync-status-desc");
+                badgeEl.className = "sync-status-badge"; // reset classes
+                
+                if (pct >= 80) {
+                    badgeEl.textContent = "Harmonisk synkronisering";
+                    badgeEl.classList.add("status-harmonisk");
+                    descEl.textContent = "Hög samstämmighet. Fokus ligger på att vårda och bygga vidare på era gemensamma styrkor.";
+                } else if (pct >= 60) {
+                    badgeEl.textContent = "Aktiv kalibrering";
+                    badgeEl.classList.add("status-aktiv");
+                    descEl.textContent = "Medel samstämmighet. Det finns tydliga styrkor, men också specifika mönsterkrockar under stress som ni behöver kalibrera tillsammans.";
+                } else {
+                    badgeEl.textContent = "Krävande navigering";
+                    badgeEl.classList.add("status-kravande");
+                    descEl.textContent = "Lägre samstämmighet. Flera samverkande mönsterkrockar drar energi. Fokus ligger på att medvetet bryta dessa loopar tillsammans.";
+                }
+
                 renderVisualMap(analysis);
                 renderDetailedFindings(analysis);
             } else {
                 // Default reset sync scores
                 document.getElementById("sync-ring").style.strokeDashoffset = 201.06;
                 document.getElementById("sync-score-val").textContent = "0%";
+                
+                const badgeEl = document.getElementById("sync-status-badge");
+                const descEl = document.getElementById("sync-status-desc");
+                if (badgeEl) {
+                    badgeEl.className = "sync-status-badge";
+                    badgeEl.textContent = "Laddar...";
+                }
+                if (descEl) {
+                    descEl.textContent = "Beräknar relationell dynamik...";
+                }
+                
                 document.getElementById("relations-svg").innerHTML = "";
                 document.getElementById("nodes-container-a").innerHTML = "";
                 document.getElementById("nodes-container-b").innerHTML = "";
