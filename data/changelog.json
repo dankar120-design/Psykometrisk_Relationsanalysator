@@ -1,0 +1,29 @@
+[
+  {
+    "version": "1.2.0",
+    "date": "2026-07-07",
+    "changes": [
+      "Lagt till stöd för relationssynergier (gröna solida linjer på kartan).",
+      "Lagt till 6 nya interaktionsregler för trygghet och samarbetsstöd.",
+      "Korrigerat beräkningsmodellen så att synergier inte maskerar krockar (klinisk säkerhet).",
+      "Inbyggd automatisk versionskontroll och ändringslogg."
+    ]
+  },
+  {
+    "version": "1.1.0",
+    "date": "2026-07-06",
+    "changes": [
+      "Lanserat webbaserad dashboard (Calm Sanctuary-tema) med lokal regelmotor.",
+      "Lagt till stöd för import/export av krypterade testkoder med SHA-256 fingerprinting.",
+      "Fixat localStorage-bugg där profil-effektiva värden rensades."
+    ]
+  },
+  {
+    "version": "1.0.0",
+    "date": "2026-07-05",
+    "changes": [
+      "Initial release av den psykometriska beräkningsmotorn i Python.",
+      "Implementerat interaktionslogik baserad på anknytningsteori och Gottman-flaggor."
+    ]
+  }
+]

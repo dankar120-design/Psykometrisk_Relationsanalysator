@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="build-timestamp" content="/*{{BUILD_TIMESTAMP}}*/">
     <title>Psykometrisk Relationsanalysator — Calm Sanctuary</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
@@ -1021,6 +1022,110 @@
             box-shadow: 0 2px 8px rgba(16, 163, 127, 0.1);
         }
 
+        .btn-changelog {
+            display: inline-block;
+            background: none;
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 2px 8px;
+            margin-left: 8px;
+            border-radius: 12px;
+            font-size: 0.72rem;
+            cursor: pointer;
+            font-family: 'Outfit', sans-serif;
+            transition: var(--transition);
+            vertical-align: middle;
+            position: relative;
+        }
+        .btn-changelog:hover {
+            background-color: var(--accent-sage-light);
+            color: var(--accent-sage-dark);
+            border-color: var(--accent-sage);
+        }
+        .btn-changelog.update-available {
+            border-color: var(--color-sync);
+            color: var(--color-sync);
+            background-color: rgba(129, 178, 154, 0.1);
+            animation: pulseGlow 2.5s infinite;
+        }
+
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 0 0 rgba(129, 178, 154, 0.4); }
+            70% { box-shadow: 0 0 0 6px rgba(129, 178, 154, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(129, 178, 154, 0); }
+        }
+
+        .changelog-list {
+            max-height: 280px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            padding-right: 8px;
+            text-align: left;
+            margin-top: 8px;
+        }
+
+        .changelog-version-block {
+            border-bottom: 1px dashed var(--border-color);
+            padding-bottom: 12px;
+        }
+        .changelog-version-block:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .changelog-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .changelog-ver {
+            font-weight: 600;
+            color: var(--accent-sage-dark);
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.05rem;
+        }
+
+        .changelog-date {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .changelog-items {
+            list-style-type: none;
+            padding-left: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .changelog-items li {
+            font-size: 0.88rem;
+            color: var(--text-main);
+            position: relative;
+            padding-left: 14px;
+            line-height: 1.4;
+        }
+
+        .changelog-items li::before {
+            content: "•";
+            color: var(--accent-sage);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .changelog-modal-actions {
+            margin-top: 8px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+        }
+
         /* Responsive Visualizer */
         @media (max-width: 600px) {
             .nodes-col {
@@ -1047,7 +1152,7 @@
                 <svg width="32" height="32" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H7c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.04-.42 1.99-1.07 2.75z"/></svg>
                 Psykometrisk Relationsanalysator
             </h1>
-            <p>Interaktiv wellness-vy för asymmetrisk relationsanalys</p>
+            <p>Interaktiv wellness-vy för asymmetrisk relationsanalys <button id="changelog-btn" class="btn-changelog" onclick="openChangelogModal()">Ändringslogg</button></p>
         </div>
 
         <div class="sync-score-card">
@@ -1363,6 +1468,7 @@
     /*{{QUESTIONS}}*/
     /*{{TRAITS}}*/
     /*{{FINGERPRINT}}*/
+    /*{{CHANGELOG}}*/
 
     // App state
     let state = {
@@ -1394,6 +1500,9 @@
                 drawConnections();
             }
         });
+
+        checkUrlForUpdates();
+        runUpdateCheck();
     };
 
     function loadFromLocalStorage() {
@@ -2348,6 +2457,158 @@ Skapa en djupt insiktsfull individprofil för ${state.nameB}.
             }, 2000);
         });
     }
+
+    // Auto-update checker & Changelog modal functions
+    function checkUrlForUpdates() {
+        const params = new URLSearchParams(window.location.search);
+        if (params.has('updated')) {
+            // Open changelog modal to show what was just updated
+            openChangelogModal(true);
+            // Clear URL parameter without reloading
+            history.replaceState(null, '', window.location.pathname);
+        }
+    }
+
+    async function runUpdateCheck() {
+        // Safe check for local file:// access to prevent CORS console warnings
+        if (window.location.protocol === 'file:') {
+            console.log("Körs lokalt via file:// - Inaktiverar versionskontroll.");
+            return;
+        }
+
+        try {
+            const resp = await fetch(window.location.href + '?cb=' + Date.now(), { cache: 'no-store' });
+            if (!resp.ok) return;
+            const text = await resp.text();
+            
+            // Extract remote build timestamp
+            const timeMatch = text.match(/name="build-timestamp" content="([^"]+)"/);
+            const remoteBuildTime = timeMatch ? timeMatch[1] : null;
+
+            // Extract remote changelog
+            const changelogMatch = text.match(/const CHANGELOG_DB = (\[.*?\]);/);
+            const remoteChangelog = changelogMatch ? JSON.parse(changelogMatch[1]) : null;
+
+            const localMeta = document.querySelector('meta[name="build-timestamp"]');
+            const localBuildTime = localMeta ? localMeta.getAttribute('content') : null;
+
+            if (remoteBuildTime && remoteBuildTime !== localBuildTime && remoteChangelog) {
+                console.log(`Ny version tillgänglig! (Server: ${remoteBuildTime}, Lokal: ${localBuildTime})`);
+                state.updateAvailable = true;
+                state.serverChangelog = remoteChangelog;
+
+                const btn = document.getElementById('changelog-btn');
+                if (btn) {
+                    btn.classList.add('update-available');
+                    btn.textContent = 'Uppdatering tillgänglig!';
+                }
+            }
+        } catch (e) {
+            console.warn("Kunde inte söka efter systemuppdateringar:", e);
+        }
+    }
+
+    function openChangelogModal(wasJustUpdated = false) {
+        const modal = document.getElementById('changelog-modal');
+        const titleEl = document.getElementById('changelog-title');
+        const contentEl = document.getElementById('changelog-content-area');
+        const actionsEl = document.getElementById('changelog-actions-area');
+
+        if (!modal || !contentEl || !actionsEl || !titleEl) return;
+
+        // Clear contents
+        contentEl.innerHTML = "";
+        actionsEl.innerHTML = "";
+
+        if (wasJustUpdated) {
+            titleEl.textContent = "Systemet har uppdaterats! 🎉";
+            
+            // Show only the latest entry (the one we just updated to)
+            const latest = CHANGELOG_DB[0] ? [CHANGELOG_DB[0]] : [];
+            renderChangelogList(contentEl, latest);
+
+            const closeBtn = document.createElement('button');
+            closeBtn.className = 'btn btn-primary';
+            closeBtn.textContent = 'Börja använda nya versionen';
+            closeBtn.onclick = closeChangelogModal;
+            actionsEl.appendChild(closeBtn);
+        } 
+        else if (state.updateAvailable && state.serverChangelog) {
+            titleEl.textContent = "Ny uppdatering tillgänglig! 🚀";
+
+            // Filter out entries that are newer than local build
+            const currentVersions = new Set(CHANGELOG_DB.map(e => e.version));
+            const newEntries = state.serverChangelog.filter(e => !currentVersions.has(e.version));
+            
+            renderChangelogList(contentEl, newEntries.length ? newEntries : state.serverChangelog);
+
+            const updateBtn = document.createElement('button');
+            updateBtn.className = 'btn btn-primary';
+            updateBtn.textContent = 'Uppdatera & Ladda om';
+            updateBtn.onclick = () => {
+                window.location.href = window.location.pathname + '?updated=1';
+            };
+
+            const cancelBtn = document.createElement('button');
+            cancelBtn.className = 'btn btn-secondary';
+            cancelBtn.textContent = 'Stäng';
+            cancelBtn.onclick = closeChangelogModal;
+
+            actionsEl.appendChild(cancelBtn);
+            actionsEl.appendChild(updateBtn);
+        } 
+        else {
+            titleEl.textContent = "Ändringslogg";
+            renderChangelogList(contentEl, CHANGELOG_DB);
+
+            const closeBtn = document.createElement('button');
+            closeBtn.className = 'btn btn-primary';
+            closeBtn.textContent = 'Stäng';
+            closeBtn.onclick = closeChangelogModal;
+            actionsEl.appendChild(closeBtn);
+        }
+
+        modal.style.display = "flex";
+    }
+
+    function renderChangelogList(container, data) {
+        data.forEach(entry => {
+            const block = document.createElement('div');
+            block.className = 'changelog-version-block';
+            
+            const headerRow = document.createElement('div');
+            headerRow.className = 'changelog-header-row';
+            
+            const verSpan = document.createElement('span');
+            verSpan.className = 'changelog-ver';
+            verSpan.textContent = `Version ${entry.version}`;
+            
+            const dateSpan = document.createElement('span');
+            dateSpan.className = 'changelog-date';
+            dateSpan.textContent = entry.date;
+            
+            headerRow.appendChild(verSpan);
+            headerRow.appendChild(dateSpan);
+            block.appendChild(headerRow);
+            
+            const ul = document.createElement('ul');
+            ul.className = 'changelog-items';
+            
+            entry.changes.forEach(change => {
+                const li = document.createElement('li');
+                li.textContent = change;
+                ul.appendChild(li);
+            });
+            
+            block.appendChild(ul);
+            container.appendChild(block);
+        });
+    }
+
+    function closeChangelogModal() {
+        const modal = document.getElementById('changelog-modal');
+        if (modal) modal.style.display = "none";
+    }
 </script>
 
 <!-- Custom Theme Modal Alert -->
@@ -2357,6 +2618,19 @@ Skapa en djupt insiktsfull individprofil för ${state.nameB}.
         <p id="custom-alert-message">Meddelandetext</p>
         <div class="custom-alert-actions">
             <button class="btn btn-primary" onclick="closeCustomAlert()">Stäng</button>
+        </div>
+    </div>
+</div>
+
+<!-- Changelog Modal -->
+<div id="changelog-modal" class="modal-backdrop" style="display: none;">
+    <div class="custom-alert-card" style="max-width: 500px;">
+        <h3 id="changelog-title">Ändringslogg</h3>
+        <div class="changelog-list" id="changelog-content-area">
+            <!-- Changelog entries will render dynamically here -->
+        </div>
+        <div class="changelog-modal-actions" id="changelog-actions-area">
+            <!-- Buttons will render dynamically here -->
         </div>
     </div>
 </div>

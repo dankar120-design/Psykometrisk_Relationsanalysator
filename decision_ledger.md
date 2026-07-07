@@ -51,3 +51,10 @@
   <kärna>Single Source of Truth för interaktioner</kärna>
   <motivering>Enligt granskningen (FAS 2) och planeringen (FAS 6) lades SECURE_ATTACHMENT och 6 nya positiva synergier in i traits.json. Den äldre hårdkodade koden i psychometrics.py och dashboard_template.html för Collaborating/Competing plockades bort för att undvika dubbelräkning och bibehålla datadriven arkitektur (DEC-003). SVG-rendering i dashboard gjordes explicit (else if) och SwedishLabel uppdaterades. Under efterföljande audit ändrades matematiken så att synergier är kvalitativa och inte maskerar krockar i sync_score.</motivering>
 </record>
+
+<record id="DEC-010" kategori="Utveckling">
+  <beslut>Implementera automatisk versionskontroll och ändringslogg (changelog) i dashboarden. Versionskontrollen använder en inbäddad build-timestamp och inaktiveras tyst vid file:// protokoll för att undvika CORS-blockeringar. Efter uppdatering triggas en automatisk omladdning med URL-parametrar som direkt presenterar nyhetsloggen för användaren.</beslut>
+  <kärna>Automatisk versionskontroll med grace-degradering för lokala filer</kärna>
+  <motivering>Genom att checka window.location.protocol och stoppa fetch vid file:// undviks röda felmeddelanden i konsolen vid lokal körning. Tidsstämpel och changelog-data hämtas och parsar live från en bakgrundsfetch mot servern, vilket säkerställer att användare på GitHub Pages direkt och sömlöst notifieras om nya uppdateringar.</motivering>
+</record>
+
