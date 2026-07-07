@@ -1519,8 +1519,7 @@
             if (savedDataA) {
                 try { 
                     let parsed = JSON.parse(savedDataA);
-                    if (parsed && parsed.answers && !parsed.attachment_profile) {
-                        console.log("Migrerar Subjekt A localStorage-cache till kapslat format...");
+                    if (parsed && parsed.answers) {
                         const calculated = calculateSubjectData(parsed.answers);
                         parsed = {
                             ...calculated,
@@ -1529,14 +1528,13 @@
                     }
                     state.dataA = parsed;
                 } catch(e) {
-                    console.error("Fel vid migreing av Subjekt A:", e);
+                    console.error("Fel vid laddning av Subjekt A:", e);
                 }
             }
             if (savedDataB) {
                 try { 
                     let parsed = JSON.parse(savedDataB);
-                    if (parsed && parsed.answers && !parsed.attachment_profile) {
-                        console.log("Migrerar Subjekt B localStorage-cache till kapslat format...");
+                    if (parsed && parsed.answers) {
                         const calculated = calculateSubjectData(parsed.answers);
                         parsed = {
                             ...calculated,
@@ -1545,7 +1543,7 @@
                     }
                     state.dataB = parsed;
                 } catch(e) {
-                    console.error("Fel vid migreing av Subjekt B:", e);
+                    console.error("Fel vid laddning av Subjekt B:", e);
                 }
             }
         }

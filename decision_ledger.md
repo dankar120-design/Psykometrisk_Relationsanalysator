@@ -64,4 +64,11 @@
   <motivering>Erkänt som en kritisk sårbarhet under fientlig granskning (FAS 8 / Audit) eftersom regex-parsningen skulle krascha vid förekomster av markerings- eller arraysymboler (såsom '];') i ändringsloggens fritext. Genom att dumpa en minimalistisk version.json vid byggtillfället och parsa den med JSON.parse() görs nätverkstransaktionen säker, XSS-skyddad och extremt bandbreddseffektiv.</motivering>
 </record>
 
+<record id="DEC-012" kategori="Felsökning">
+  <beslut>Fixa LocalStorage-caching av beräknade drag genom att alltid räkna om profiler från råa enkätsvar på start, samt lägga till nya regler för trygg anknytningsbuffert.</beslut>
+  <kärna>Eliminering av cache-låsning och utökade relationssynergier</kärna>
+  <motivering>Upptäckte att tillägget av SECURE_ATTACHMENT inte visades på befintliga importerade användarprofiler i webbläsaren på grund av att localStorage returnerade förberäknade statiska drag från den äldre klientsessionen. Genom att alltid räkna om allt på load säkerställs att ändringar i traits.json direkt reflekteras. Lade dessutom till 4 nya buffert-synergier för par där den ena är trygg och den andra är ångestfylld/undvikande.</motivering>
+</record>
+
+
 

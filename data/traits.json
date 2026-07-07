@@ -199,6 +199,46 @@
       "type": "attraction",
       "severity": "medium",
       "description": "Konstruktiv konfliktmatch: Emma strävar efter samarbete och David söker kompromisser, vilket leder till effektiva och balanserade överenskommelser."
+    },
+    {
+      "id": "RULE_SECURE_BUFFER_D_ANXIOUS",
+      "conditions": [
+        { "subject": "D", "path": "identified_traits", "operator": "contains", "value": "SECURE_ATTACHMENT" },
+        { "subject": "E", "path": "identified_traits", "operator": "contains", "value": "ANXIOUS_PREOCCUPIED" }
+      ],
+      "type": "attraction",
+      "severity": "high",
+      "description": "Trygg anknytningsbuffert: Davids stabila anknytning fungerar som en lugnande bas som dämpar Emmas separationsångest."
+    },
+    {
+      "id": "RULE_SECURE_BUFFER_E_ANXIOUS",
+      "conditions": [
+        { "subject": "E", "path": "identified_traits", "operator": "contains", "value": "SECURE_ATTACHMENT" },
+        { "subject": "D", "path": "identified_traits", "operator": "contains", "value": "ANXIOUS_PREOCCUPIED" }
+      ],
+      "type": "attraction",
+      "severity": "high",
+      "description": "Trygg anknytningsbuffert: Emmas stabila anknytning fungerar som en lugnande bas som dämpar Davids separationsångest."
+    },
+    {
+      "id": "RULE_SECURE_BUFFER_D_AVOIDANT",
+      "conditions": [
+        { "subject": "D", "path": "identified_traits", "operator": "contains", "value": "SECURE_ATTACHMENT" },
+        { "subject": "E", "path": "identified_traits", "operator": "contains", "value": "DISMISSIVE_AVOIDANT" }
+      ],
+      "type": "attraction",
+      "severity": "high",
+      "description": "Trygg autonomibuffert: Davids känslomässiga stabilitet ger Emma utrymme att dra sig undan vid stress utan att relationen hotas."
+    },
+    {
+      "id": "RULE_SECURE_BUFFER_E_AVOIDANT",
+      "conditions": [
+        { "subject": "E", "path": "identified_traits", "operator": "contains", "value": "SECURE_ATTACHMENT" },
+        { "subject": "D", "path": "identified_traits", "operator": "contains", "value": "DISMISSIVE_AVOIDANT" }
+      ],
+      "type": "attraction",
+      "severity": "high",
+      "description": "Trygg autonomibuffert: Emmas känslomässiga stabilitet ger David utrymme att dra sig undan vid stress utan att relationen hotas."
     }
   ]
 }
