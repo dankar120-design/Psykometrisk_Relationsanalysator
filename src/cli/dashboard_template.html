@@ -2501,13 +2501,12 @@
                 return;
             }
 
-            const cleanDataA = {
-                name: state.nameA,
+            const pairData = {};
+            pairData[state.nameA] = {
                 scores: state.dataA.scores,
                 identified_traits: state.dataA.identified_traits
             };
-            const cleanDataB = {
-                name: state.nameB,
+            pairData[state.nameB] = {
                 scores: state.dataB.scores,
                 identified_traits: state.dataB.identified_traits
             };
@@ -2517,15 +2516,15 @@
 Här följer den insamlade datan för ett par.
 
 Par-data (JSON):
-${JSON.stringify({ subject_A: cleanDataA, subject_B: cleanDataB }, null, 2)}
+${JSON.stringify(pairData, null, 2)}
 
 Uppgift:
 Genomför en djupgående, finkänslig men knivskarp relationsanalys. Fokusera särskilt på följande dynamiker:
 1. Närhet och distans: Hur kan de bäst navigera behovet av kontakt kontra utrymme givet deras profiler?
-2. HSP-EOE Återhämtningskrock: Hur hanterar de situationer där en behöver isolera sig för sensorisk återhämtning, vilket triggar den andres anknytningsångest (chasing/avoidance-cykeln)?
+2. HSP-EOE Återhämtningskrock: Hur hanterar de situationer där en behöver isolera sig för sensorisk återhämtning, vilket kan trigga den andres anknytningsreaktion?
 3. Stressreaktionsmönster: Analysera deras interaktion vid emotionell aktivering (hyperaktivering etc.).
 4. TKI & Gottman: Identifiera hur deras konfliktstilar krockar och ge konkreta övningar för att hantera kritik och avstängning (stonewalling).
-5. Konkreta råd: Formulera exakt vad Subject A kan göra för att bjuda in Subject B utan att skapa låsningar, och hur Subject B kan kommunicera sitt behov av återhämtning tryggt.
+5. Konkreta råd: Ge varje person skräddarsydda, konkreta verktyg baserade på just deras profil. Hur kan var och en bjuda in den andre tryggt utan att trigga låsningar, och hur kan de kommunicera sina behov av närhet respektive utrymme på ett sätt som den andres nervsystem kan ta emot?
 
 Analysen ska hålla en akademisk, terapeutisk och lösningsorienterad ton. Undvik plattityder.`;
 
@@ -2537,10 +2536,15 @@ Analysen ska hålla en akademisk, terapeutisk och lösningsorienterad ton. Undvi
                 return;
             }
 
+            const indDataA = {
+                scores: state.dataA.scores,
+                identified_traits: state.dataA.identified_traits
+            };
+
             const prompt = `Du agerar som en personlig samtalsterapeut och coach. Här är psykometrisk data för en individ:
 
 Individ-data (JSON):
-${JSON.stringify({ name: state.nameA, scores: state.dataA.scores, identified_traits: state.dataA.identified_traits }, null, 2)}
+${JSON.stringify(indDataA, null, 2)}
 
 Uppgift:
 Skapa en djupt insiktsfull individprofil för ${state.nameA}. 
@@ -2557,10 +2561,15 @@ Skapa en djupt insiktsfull individprofil för ${state.nameA}.
                 return;
             }
 
+            const indDataB = {
+                scores: state.dataB.scores,
+                identified_traits: state.dataB.identified_traits
+            };
+
             const prompt = `Du agerar som en personlig samtalsterapeut och coach. Här är psykometrisk data för en individ:
 
 Individ-data (JSON):
-${JSON.stringify({ name: state.nameB, scores: state.dataB.scores, identified_traits: state.dataB.identified_traits }, null, 2)}
+${JSON.stringify(indDataB, null, 2)}
 
 Uppgift:
 Skapa en djupt insiktsfull individprofil för ${state.nameB}. 
