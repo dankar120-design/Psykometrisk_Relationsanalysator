@@ -97,5 +97,25 @@
 <record id="DEC-017" kategori="Utveckling">
   <beslut>Avveckla oanvända CLI-filer, korrigera namn-placeholders i traits.json, samt implementera tema-baserad poängberäkning och status-badges i dashboarden.</beslut>
   <kärna>CLI-avveckling, tema-baserade krockavdrag och relationsstatus</kärna>
-  <motivering>Genom att radera src/cli/analysator.py, src/core/psychometrics.py och tests/test_psychometrics.py rensas oanvänd kod. Korrigering av RULE_TKI_CONSTRUCTIVE_MATCH i traits.json till D/E placeholders möjliggör dynamisk namnsubstitution. Att gruppera krockar per övergripande tema (t.ex. HSP-återhämtning, Gottman-eskalering) förhindrar dubbelräkning av komplementära krockar, vilket vetenskapligt motverkar onödigt låga betyg. Status-badges ger konstruktiv och icke-dömande guidning för par.</motivering>
+  <motivering>Genom byta ut src/cli/analysator.py, src/core/psychometrics.py och tests/test_psychometrics.py rensas oanvänd kod. Korrigering av RULE_TKI_CONSTRUCTIVE_MATCH i traits.json till D/E placeholders möjliggör dynamisk namnsubstitution. Att gruppera krockar per övergripande tema (t.ex. HSP-återhämtning, Gottman-eskalering) förhindrar dubbelräkning av komplementära krockar, vilket vetenskapligt motverkar onödigt låga betyg. Status-badges ger konstruktiv och icke-dömande guidning för par.</motivering>
 </record>
+
+<record id="DEC-018" kategori="Felsökning">
+  <beslut>Refaktorera krockvisningen till generisk dynamic sammanslagning, samt införa defensiva guards i poängberäkningen.</beslut>
+  <kärna>Generisk reciprok sammanslagning och kraschsäkring</kärna>
+  <motivering>Efter fientlig granskning (FAS 2) upptäcktes att poängmotorn grupperar alla _REV-krockar generellt medan gränssnittet hade hårdkodad logik för endast HSP och Gottman. Genom att göra renderDetailedFindings helt generisk grupperas nu alla reciproka krockar (t.ex. ångest-undvikande-fällan) dynamiskt under ett ömsesidigt varningskort om båda riktningar är aktiva. Detta synkroniserar gränssnittets varningskort med poängmotorns avdrag. Dessutom lades defensiva kontroller till för att förhindra type-errors om regel-id:n saknas.</motivering>
+</record>
+
+<record id="DEC-019" kategori="Varumärke och UI">
+  <beslut>Byta namn på applikationens frontend från Psykometrisk Relationsanalysator till Relia samt integrera den nya logotypen "Safe Haven" (Koncept 3) som en interaktiv och responsiv SVG i dashboard-headern.</beslut>
+  <kärna>Rebranding till Relia och integration av interaktiv logotyp</kärna>
+  <motivering>Det nya namnet Relia valdes för att underlätta framtida kommersiell skalning på App Store/Google Play genom att erbjuda ett mjukare, kortare och mer wellness-orienterat namn utan religiösa associationer. Logotypen (Safe Haven) visualiserar en trygg bas (en vagga som håller en svävande part) och stämmer överens med anknytningsteorins principer. Subtila CSS-hover-animationer har lagts till som mjukt vaggar logotypen för att förstärka premiumkänslan i Calm Sanctuary-temat.</motivering>
+</record>
+
+<record id="DEC-020" kategori="Felsökning">
+  <beslut>Strama upp defensiva guards med typ-kontroll samt åtgärda skiljetecken i genererade krocktexter.</beslut>
+  <kärna>Typkontroll i guards och borttagning av dubbla punkter i text</kärna>
+  <motivering>Genomförde finjusteringar efter den andra audit-granskningen. Uppdaterade filterlogiken till typeof theme !== 'string' istället för enbart sanningstest (!theme) för att förhindra fatala javascript-krascher på .endsWith() om ett id skulle vara ett tal. Dessutom lades en .replace-trimning till för att ta bort avslutande punkter från beskrivningar i traits.json före sammanslagning med texten ", och vice versa", vilket förhindrar dubbla punkter i gränssnittet.</motivering>
+</record>
+
+

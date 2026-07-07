@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="build-timestamp" content="2026-07-07T10:01:02Z">
-    <title>Psykometrisk Relationsanalysator — Calm Sanctuary</title>
+    <meta name="build-timestamp" content="2026-07-07T10:22:15Z">
+    <title>Relia — Calm Sanctuary</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -84,7 +84,31 @@
         }
 
         .header-title-area h1 svg {
-            fill: var(--accent-sage);
+            transition: var(--transition);
+        }
+
+        .header-title-area h1:hover svg {
+            transform: scale(1.05);
+        }
+
+        /* Den svävande gröna orben vaggas mjukt upp och ner vid hover */
+        .header-title-area h1:hover .logo-orb {
+            animation: cradle-float 2s ease-in-out infinite;
+        }
+
+        /* Hela skålgruppen gungar svagt vid hover */
+        .header-title-area h1:hover .logo-cradle-group {
+            animation: cradle-rock 2s ease-in-out infinite;
+        }
+
+        @keyframes cradle-float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-1.5px); }
+        }
+
+        @keyframes cradle-rock {
+            0%, 100% { transform: rotate(0deg); transform-origin: 18px 23px; }
+            50% { transform: rotate(3deg); transform-origin: 18px 23px; }
         }
 
         .header-title-area p {
@@ -1179,8 +1203,14 @@
     <header class="dashboard-header">
         <div class="header-title-area">
             <h1>
-                <svg width="32" height="32" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H7c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.04-.42 1.99-1.07 2.75z"/></svg>
-                Psykometrisk Relationsanalysator
+                <svg class="logo-icon" width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="18" cy="12" r="5.5" fill="var(--accent-sage)" class="logo-orb" />
+                    <g class="logo-cradle-group">
+                        <path d="M9 19C9 28 27 28 27 19C23 25 13 25 9 19Z" fill="var(--accent-sand)" />
+                        <path d="M13 22C18 26 27 24 28 17C25 22 18 23 13 22Z" fill="var(--accent-sand-light)" />
+                    </g>
+                </svg>
+                Relia
             </h1>
             <p>Interaktiv wellness-vy för asymmetrisk relationsanalys <button id="changelog-btn" class="btn-changelog" onclick="openChangelogModal()">Ändringslogg</button></p>
         </div>
@@ -2025,6 +2055,7 @@
         connections.forEach(conn => {
             if (conn.edge_type === 'collision') {
                 let theme = conn.evidence;
+                if (typeof theme !== 'string') return;
                 if (theme.endsWith('_REV')) {
                     theme = theme.substring(0, theme.length - 4);
                 }
@@ -2357,52 +2388,65 @@
             return;
         }
 
-        // Check if both HSP recovery collisions are active
-        const hasHspCollA = analysis.connections.some(c => c.evidence === "RULE_HSP_RECOVERY_COLLISION");
-        const hasHspCollB = analysis.connections.some(c => c.evidence === "RULE_HSP_RECOVERY_COLLISION_REV");
-        const mergeHspColl = hasHspCollA && hasHspCollB;
-
-        // Check if both Gottman criticism/stonewalling warnings are active
-        const hasGottmanA = analysis.connections.some(c => c.evidence === "RULE_GOTTMAN_CRITICISM_STONEWALLING");
-        const hasGottmanB = analysis.connections.some(c => c.evidence === "RULE_GOTTMAN_CRITICISM_STONEWALLING_REV");
-        const mergeGottman = hasGottmanA && hasGottmanB;
-
-        // Group collisions
-        const processedCollisions = [];
+        // Group collisions by base theme (stripping _REV)
+        const collisionGroups = {};
         analysis.connections.forEach(conn => {
             if (conn.edge_type !== 'collision') return;
-
-            if (mergeHspColl) {
-                if (conn.evidence === "RULE_HSP_RECOVERY_COLLISION") {
-                    processedCollisions.push({
-                        evidence: "RULE_HSP_RECOVERY_COLLISION_MUTUAL",
-                        description: "Ömsesidig sensorisk återhämtningskrock: Båda parter har ett stort behov av ensamtid för återhämtning (HSP), men reagerar samtidigt med hyperaktivering vid stress. Det innebär att båda parters behov av utrymme krockar med den andres behov av omedelbar kontakt."
-                    });
-                    return;
-                }
-                if (conn.evidence === "RULE_HSP_RECOVERY_COLLISION_REV") {
-                    return; // Skip second one since it's merged
-                }
+            
+            let theme = conn.evidence;
+            if (typeof theme !== 'string') return;
+            
+            if (theme.endsWith('_REV')) {
+                theme = theme.substring(0, theme.length - 4);
             }
-
-            if (mergeGottman) {
-                if (conn.evidence === "RULE_GOTTMAN_CRITICISM_STONEWALLING") {
-                    processedCollisions.push({
-                        evidence: "RULE_GOTTMAN_MUTUAL_CRITICISM_STONEWALLING",
-                        description: "Ömsesidig destruktiv eskalering: Båda parter använder kritik och stänger av (Stonewalling) i konflikter. Det skapar en destruktiv spiral där bådas reaktioner växelvis triggar anfall och emotionell avstängning hos den andre."
-                    });
-                    return;
-                }
-                if (conn.evidence === "RULE_GOTTMAN_CRITICISM_STONEWALLING_REV") {
-                    return; // Skip second one since it's merged
-                }
+            if (!collisionGroups[theme]) {
+                collisionGroups[theme] = [];
             }
-
-            processedCollisions.push({
-                evidence: conn.evidence,
-                description: conn.description
-            });
+            collisionGroups[theme].push(conn);
         });
+
+        // Specific custom descriptions for mutual collisions
+        const MUTUAL_DESCRIPTIONS = {
+            "RULE_HSP_RECOVERY_COLLISION": "Ömsesidig sensorisk återhämtningskrock: Båda parter har ett stort behov av ensamtid för återhämtning (HSP), men reagerar samtidigt med hyperaktivering vid stress. Det innebär att båda parters behov av utrymme krockar med den andres behov av omedelbar kontakt.",
+            "RULE_GOTTMAN_CRITICISM_STONEWALLING": "Ömsesidig destruktiv eskalering: Båda parter använder kritik och stänger av (Stonewalling) i konflikter. Det skapar en destruktiv spiral där bådas reaktioner växelvis triggar anfall och emotionell avstängning hos den andre.",
+            "RULE_ANXIOUS_AVOIDANT_TRAP": "Ömsesidig ångest-undvikande-fälla: Båda parter uppvisar både otrygg-ängsliga och otrygg-undvikande drag, vilket gör att närhetsjakt och distansering uppstår från båda hållen och skapar en dubbel konfliktspiral."
+        };
+
+        const processedCollisions = [];
+        for (const [theme, conns] of Object.entries(collisionGroups)) {
+            if (conns.length === 2) {
+                // If mutual (both base and _REV are active)
+                const customDesc = MUTUAL_DESCRIPTIONS[theme];
+                if (customDesc) {
+                    processedCollisions.push({
+                        evidence: theme + "_MUTUAL",
+                        description: customDesc
+                    });
+                } else {
+                    // Generic fallback for reciprocal rules
+                    const baseDesc = conns[0].description;
+                    let desc = baseDesc;
+                    if (baseDesc.includes(':')) {
+                        const parts = baseDesc.split(':');
+                        const title = parts[0].trim();
+                        const rest = parts.slice(1).join(':').trim().replace(/\.\s*$/, '');
+                        desc = `Ömsesidig ${title.toLowerCase()}: ${rest}, och vice versa.`;
+                    } else {
+                        desc = `Ömsesidig dynamik: ${baseDesc.replace(/\.\s*$/, '')}, och vice versa.`;
+                    }
+                    processedCollisions.push({
+                        evidence: theme + "_MUTUAL",
+                        description: desc
+                    });
+                }
+            } else {
+                // Single active direction or inherently mutual rule
+                processedCollisions.push({
+                    evidence: conns[0].evidence,
+                    description: conns[0].description
+                });
+            }
+        }
 
         // Add collisions to DOM
         processedCollisions.forEach(item => {
